@@ -17,7 +17,7 @@ const conf = {
         rules: [
             {
                 test: /\.js$/,
-                loader: 'babel-loader',
+                loader: 'babel-loader',  //transpiler - translate new js into "old" js
                 query: {
                     presets: ['@babel/preset-react', '@babel/preset-env']
                 }
@@ -27,7 +27,7 @@ const conf = {
 };
 
 if (require.main == module) {
-    webpack(conf, function(err, info) {
+    webpack(conf, function (err, info) {
         if (err) {
             console.log(err);
         }
