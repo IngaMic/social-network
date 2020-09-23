@@ -148,31 +148,25 @@ app.post("/login", (req, res) => {
                         ////////////////////////////////////PROBLEM IN HERE:
                         ///////////////err in compare login : Cannot set headers after they are sent to the client
                         if (info) {
-                            //req.session.userId = userId;
-                            res.json({
-                                success: "success",
-                                //userId,
-                            });
-                        } else {
-                            res.json({
-                                error: "Please try again",
+                            req.session.userId = userId;
+                            return res.json({
+                                success: info,
+                                userId,
                             });
                         }
                     })
-                    .catch((err) => console.log("err in compare login", err));
-                res.json({
-                    error: "Please try again",
-                });
-            } else {
-                // no result
-                res.json({
-                    error: "Please try again",
-                });
+                    .catch((err) => {
+                        console.log("err in compare login", err);
+                        return res.json({
+                            error: "Please try again",
+                        });
+                    });
             }
+            return;
         })
         .catch((err) => {
             console.log("err in getLogin", err);
-            res.json({
+            return res.json({
                 error: "Please try again",
             });
         });
