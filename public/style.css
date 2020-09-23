@@ -1,0 +1,38 @@
+/* 
+@font-face {
+    font-family: "Typefesse Claire Obscure";
+    src: url("/mnt/c/Users/inger/socialnet/cumin-socialnetwork/public/font/typefesse-master/Fonts/1-otf/._Typefesse_Claire-Obscure.otf");
+    src:
+        url("/mnt/c/Users/inger/socialnet/cumin-socialnetwork/public/font/typefesse-master/Fonts/2-webfonts/._Typefesse_Claire-Obscure.woff")
+            format("woff"),
+        url("/mnt/c/Users/inger/socialnet/cumin-socialnetwork/public/font/typefesse-master/Fonts/2-webfonts/._Typefesse_Claire-Obscure.woff2")
+            format("woff2");
+    font-weight: normal;
+    font-style: normal;
+} */
+
+/* Blackout Two AM */
+@font-face {
+    font-family: "Blackout Two AM";
+    src: url("/public/font/blackout-master/blackout-master/source/blackout_two_am.ufo");
+    src: url("/public/font/blackout-master/blackout-master/webfonts/blackout_two_am-webfont.eot?#iefix")
+            format("embedded-opentype"),
+        url("/public/font/blackout-master/blackout-master/webfonts/blackout_two_am-webfont.woff")
+            format("woff"),
+        url("/mnt/c/Users/inger/board/cumin-imageboard/public/font/blackout-master/Blackoutgood.ttf")
+            format("truetype"),
+        url("/public/font/blackout-master/blackout-master/webfonts/blackout_two_am-webfont.svg#BlackoutTwoAM")
+            format("svg");
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    font-family: "Blackout Two AM";
+}
+h1 {
+    font-size: 50px;
+}
+p {
+    font-size: 25px;
+}

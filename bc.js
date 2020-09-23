@@ -10,4 +10,5 @@ compare = promisify(compare);
 
 module.exports.compare = compare;
 //make it so it generates the salt and then had the password:
-module.exports.hash = plainTextPasswordFromUser => genSalt().then(salt => hash(plainTextPasswordFromUser, salt));
+module.exports.hash = (plainTextPasswordFromUser) =>
+    genSalt().then((salt) => hash(plainTextPasswordFromUser, salt));
