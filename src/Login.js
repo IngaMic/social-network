@@ -1,9 +1,10 @@
 import React from "react";
 //const cookieSession = require("cookie-session");
 import axios from "./axios";
-//import { Link } from "react-router-dom";
+import { Link, HashRouter } from "react-router-dom";
+import ResetPassword from "./ResetPassword";
 
-export default class Registration extends React.Component {
+export default class Login extends React.Component {
     constructor() {
         super();
         this.state = {
@@ -14,18 +15,16 @@ export default class Registration extends React.Component {
         };
     }
     handleChange(e) {
-        console.log("HandleChange is reacting, e.target.value", e.target);
+        //console.log("HandleChange is reacting, e.target.value", e.target);
         const target = e.target;
         const { name, value } = target;
         this.setState(
             {
                 [name]: value,
-                //last: e.target.value,// Read Documentation ////////////////////////////////////////////////////////
             } //, () => {
             // console.log("this.state", this.state);}
-        ); //setState is async! that is why console.log given as second arg
-    } // 1. finish writing the handleChange button with one setState
-    // 2. second eventHandler will be click on a button and redirect
+        ); //setState is async!
+    }
     handleSubmit(e) {
         e.preventDefault();
         console.log("this.state  :", this.state);
@@ -48,7 +47,7 @@ export default class Registration extends React.Component {
         });
     }
     // just Showing how to set ERROR to true
-    // this.setState ({error: true}) //we need to figure out where to pur it
+    // this.setState ({error: true})
     render() {
         return (
             <div>
@@ -77,6 +76,8 @@ export default class Registration extends React.Component {
                     </div>
                     <button>Login</button>
                 </form>
+
+                <Link to="/reset">Click here to reset your password!</Link>
             </div>
         );
     }
