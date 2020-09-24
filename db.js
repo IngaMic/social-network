@@ -12,6 +12,14 @@ module.exports.registerUser = (first, last, email, password) => {
         [first, last, email, password]
     );
 };
+module.exports.getUser = (userId) => {
+    return db.query(
+        `SELECT * FROM users 
+    WHERE id = ($1)
+    `,
+        [userId]
+    );
+};
 module.exports.getLogin = (email) => {
     return db.query(
         `
@@ -47,5 +55,15 @@ module.exports.updatePassword = (email, password) => {
     WHERE email = ($1) RETURNING *
     `,
         [email, password]
+    );
+};
+
+module.exports.updateImage = (imageUrl, userId) => {
+    return db.query(
+        `UPDATE users
+    SET imageUrl = ($1)
+    WHERE id = ($2) RETURNING *
+    `,
+        [imageUrl, userId]
     );
 };

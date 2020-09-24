@@ -75,8 +75,8 @@ export default class ResetPassword extends React.Component {
                 this.setState({ error: true });
             } else {
                 console.log("response from ResetPassword /resetpassword", resp);
-
-                location.replace("/");
+                this.setState({ currentDisplay: 4 });
+                // location.replace("/login");
             }
         });
     }
@@ -134,6 +134,13 @@ export default class ResetPassword extends React.Component {
                             </div>
                             <button>Reset Your Password</button>
                         </form>
+                    </div>
+                )}
+                {this.state.currentDisplay == 4 && (
+                    <div>
+                        <Link to="/login">
+                            Click here to login with your new password!
+                        </Link>
                     </div>
                 )}
             </div>

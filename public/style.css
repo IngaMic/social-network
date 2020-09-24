@@ -1,11 +1,12 @@
-/* 
-@font-face {
+/* Typefesse Claire Obscure*/
+/* @font-face {
     font-family: "Typefesse Claire Obscure";
-    src: url("/mnt/c/Users/inger/socialnet/cumin-socialnetwork/public/font/typefesse-master/Fonts/1-otf/._Typefesse_Claire-Obscure.otf");
-    src:
-        url("/mnt/c/Users/inger/socialnet/cumin-socialnetwork/public/font/typefesse-master/Fonts/2-webfonts/._Typefesse_Claire-Obscure.woff")
+    src: url("/font/typefesse-master/Fonts/1-otf/._Typefesse_Claire-Obscure.otf");
+    src: url("/font/typefesse-master/Fonts/2-webfonts/._Typefesse_Claire-Obscure.woff")
             format("woff"),
-        url("/mnt/c/Users/inger/socialnet/cumin-socialnetwork/public/font/typefesse-master/Fonts/2-webfonts/._Typefesse_Claire-Obscure.woff2")
+        url("/font/typefesse-master/Fonts/2-webfonts/._Typefesse_Claire-Obscure.eot")
+            format("eot"),
+        url("/font/typefesse-master/Fonts/2-webfonts/._Typefesse_Claire-Obscure.woff2")
             format("woff2");
     font-weight: normal;
     font-style: normal;
@@ -28,6 +29,7 @@
 }
 
 body {
+    /* font-family: "Typefesse Claire Obscure"; */
     font-family: "Blackout Two AM";
 }
 h1 {

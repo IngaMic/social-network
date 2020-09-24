@@ -2,7 +2,6 @@ import React from "react";
 //const cookieSession = require("cookie-session");
 import axios from "./axios";
 import { Link, HashRouter } from "react-router-dom";
-import ResetPassword from "./ResetPassword";
 
 export default class Login extends React.Component {
     constructor() {
@@ -38,10 +37,10 @@ export default class Login extends React.Component {
             if (resp.data.error) {
                 this.setState({ error: true });
             } else {
-                console.log(
-                    "userId from response in Registration.js",
-                    resp.data.userId
-                );
+                // console.log(
+                //     "userId from response in Registration.js",
+                //     resp.data.userId
+                // );
                 location.replace("/");
             }
         });
