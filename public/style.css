@@ -38,3 +38,54 @@ h1 {
 p {
     font-size: 25px;
 }
+#small-profile-img {
+    right: 15px;
+    top: 10px;
+    position: absolute;
+}
+#big-profile-img {
+    left: 15px;
+    top: 100px;
+    position: absolute;
+}
+#name-surname {
+    font-size: 25px;
+    left: 250px;
+    top: 150px;
+    position: absolute;
+}
+#bio {
+    font-size: 15px;
+    left: 250px;
+    top: 220px;
+    position: absolute;
+}
+#edit-bio {
+    font-size: 20px;
+    left: 250px;
+    top: 270px;
+    position: absolute;
+}
+#bio-editor {
+    font-size: 20px;
+    left: 250px;
+    top: 270px;
+    position: absolute;
+}
+#uploader {
+    padding-top: 15px;
+    height: 90%;
+    width: 90%;
+    background-color: rgb(243, 243, 243);
+    left: 50px;
+    top: 30px;
+    position: fixed;
+    text-align: center;
+    border-radius: 5px;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+}
+#uploader-form {
+    right: 15px;
+    top: 300px;
+    position: absolute;
+}

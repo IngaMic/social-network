@@ -9,9 +9,11 @@ export default class Uploader extends React.Component {
             file: "",
             userId: props.userId,
             error: false,
+            uploaderIsVisible: false,
         };
     }
     handleSubmit(e) {
+        e.preventDefault();
         var formData = new FormData();
         formData.append("file", this.state.file);
         console.log("FormData", formData);
@@ -24,6 +26,7 @@ export default class Uploader extends React.Component {
                     resp.data
                 );
                 this.props.setImage(resp.data.imageUrl);
+                this.props.closeUploader(e);
             })
             .catch(function (err) {
                 console.log(
@@ -44,8 +47,18 @@ export default class Uploader extends React.Component {
     }
     render() {
         return (
-            <div>
-                <form onSubmit={(e) => this.handleSubmit(e)}>
+            <div id="uploader">
+                <img
+                    id="big-profile-img"
+                    src={
+                        this.state.imageUrl ||
+                        "https://image.flaticon.com/icons/svg/1338/1338020.svg"
+                    }
+                    alt=""
+                    width="300"
+                    height="350"
+                ></img>
+                <form id="uploader-form" onSubmit={(e) => this.handleSubmit(e)}>
                     <input
                         onChange={(e) => this.handleChange(e)}
                         type="file"

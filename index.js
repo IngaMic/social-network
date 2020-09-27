@@ -10,6 +10,7 @@ const cookieSession = require("cookie-session");
 const cryptoRandomString = require("crypto-random-string");
 const csurf = require("csurf");
 const { s3Url } = require("./config.json");
+const uidSafe = require("uid-safe");
 const s3 = require("./s3.js");
 const multer = require("multer");
 app.use(compression());
@@ -334,20 +335,36 @@ app.get("/user", (req, res) => {
 app.post("/uploadimg", uploader.single("file"), s3.upload, (req, res) => {
     let userId = req.session.userId;
     console.log("from /uploadimg req.body : ", req.body);
-    //let filename = req.body.filename;
-    //console.log("filename  :", filename);
+    let filename = req.body.name;
+    console.log("filename  :", filename);
     const url = `${s3Url}${filename}`;
     console.log("URL    : ", url);
     db.updateImage(url, userId)
         .then((info) => {
-            console.log("info after updateImage : ", info);
+            console.log("info after updateImage : ", info.rows[0].imageurl);
             return res.json({
-                imageUrl: info.rows[0].imageUrl,
+                imageUrl: info.rows[0].imageurl,
                 success: "success",
             });
         })
         .catch((err) => {
             console.log("trouble with updating /uploadimg", err);
+        });
+});
+app.post("/uploadbio", (req, res) => {
+    let userId = req.session.userId;
+    console.log("from /uploadimg req.body : ", req.body);
+    let text = req.body.text;
+    db.updateBio(text, userId)
+        .then((info) => {
+            console.log("info after updateBio : ", info);
+            return res.json({
+                bio: info.rows[0].bio,
+                success: "success",
+            });
+        })
+        .catch((err) => {
+            console.log("trouble with updating /uploadbio", err);
         });
 });
 app.get("*", function (req, res) {
