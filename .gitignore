@@ -4,3 +4,7 @@ secrets.json
 font
 config.json
 s3.js
+
+
+profilepic.test.js
+app.test.js

@@ -16,8 +16,8 @@ export default class Uploader extends React.Component {
         e.preventDefault();
         var formData = new FormData();
         formData.append("file", this.state.file);
-        console.log("FormData", formData);
-        console.log("this.state.imageUrl   :", this.state.file.name);
+        // console.log("FormData", formData);
+        // console.log("this.state.imageUrl   :", this.state.file.name);
         axios
             .post("/uploadimg", formData)
             .then((resp) => {
@@ -36,11 +36,11 @@ export default class Uploader extends React.Component {
             });
     }
     handleChange(e) {
-        console.log("HandleChange is reacting, e.target.value", e.target.value);
-        console.log(
-            "HandleChange is reacting, e.target.files[0]",
-            e.target.files[0]
-        );
+        // console.log("HandleChange is reacting, e.target.value", e.target.value);
+        // console.log(
+        //     "HandleChange is reacting, e.target.files[0]",
+        //     e.target.files[0]
+        // );
         this.setState({ file: e.target.files[0] }, () => {
             console.log("this.state", this.state);
         });
@@ -51,7 +51,7 @@ export default class Uploader extends React.Component {
                 <img
                     id="big-profile-img"
                     src={
-                        this.state.imageUrl ||
+                        this.props.imageUrl ||
                         "https://image.flaticon.com/icons/svg/1338/1338020.svg"
                     }
                     alt=""

@@ -320,7 +320,7 @@ app.get("/user", (req, res) => {
                     first: list[0].first,
                     last: list[0].last,
                     bio: list[0].bio,
-                    imageUrl: list[0].imageUrl,
+                    imageUrl: list[0].imageurl,
                     email: list[0].email,
                 });
             })
@@ -331,14 +331,38 @@ app.get("/user", (req, res) => {
         res.sendFile(__dirname + "/index.html");
     }
 });
-
+app.get("/user/:id.json", (req, res) => {
+    const userId = req.params.id;
+    if (userId) {
+        // let id = req.params.id;
+        // console.log("userId from /user ", id);
+        db.getUser(userId)
+            .then((info) => {
+                var list = info.rows;
+                console.log("my list here   :", list);
+                return res.json({
+                    userId: list[0].id,
+                    first: list[0].first,
+                    last: list[0].last,
+                    bio: list[0].bio,
+                    imageUrl: list[0].imageurl,
+                    email: list[0].email,
+                });
+            })
+            .catch((err) => {
+                console.log("err in getUser index.js", err);
+            });
+    } else {
+        res.sendFile(__dirname + "/index.html");
+    }
+});
 app.post("/uploadimg", uploader.single("file"), s3.upload, (req, res) => {
+    //console.log("from /uploadimg req.body : ", req.body);
     let userId = req.session.userId;
-    console.log("from /uploadimg req.body : ", req.body);
-    let filename = req.body.name;
-    console.log("filename  :", filename);
+    let filename = req.file.filename;
+    //console.log("filename  :", filename);
     const url = `${s3Url}${filename}`;
-    console.log("URL    : ", url);
+    //console.log("URL    : ", url);
     db.updateImage(url, userId)
         .then((info) => {
             console.log("info after updateImage : ", info.rows[0].imageurl);
@@ -353,11 +377,11 @@ app.post("/uploadimg", uploader.single("file"), s3.upload, (req, res) => {
 });
 app.post("/uploadbio", (req, res) => {
     let userId = req.session.userId;
-    console.log("from /uploadimg req.body : ", req.body);
-    let text = req.body.text;
-    db.updateBio(text, userId)
+    //console.log("from /uploadbio req.body : ", req.body);
+    let bio = req.body.bio;
+    db.updateBio(bio, userId)
         .then((info) => {
-            console.log("info after updateBio : ", info);
+            //console.log("info after updateBio : ", info);
             return res.json({
                 bio: info.rows[0].bio,
                 success: "success",

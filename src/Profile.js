@@ -14,42 +14,33 @@ export default class Profile extends React.Component {
             file: "",
             userId: null,
             clickHandler: null,
-            bioEditIsVisible: false,
             error: false,
         };
     }
     componentDidMount() {
         this.setState({
             userId: this.props.userId,
-            first: this.props.first,
-            last: this.props.last,
-            bio: this.props.bio,
-            imageUrl: this.props.imageUrl,
             clickHandler: this.props.clickHandler,
-        }),
-            console.log(
-                "These must be the props that we get from App to Profile",
-                this.props
-            );
+        });
     }
     render() {
         return (
             <div>
-                {this.state.userId && (
+                {this.props.logUserId && (
                     <ProfilePic
-                        userId={this.state.userId}
-                        first={this.state.first}
-                        last={this.state.last}
-                        imageUrl={this.state.imageUrl}
-                        clickHandler={this.state.clickHandler}
+                        userId={this.props.userId}
+                        first={this.props.first}
+                        last={this.props.last}
+                        imageUrl={this.props.imageUrl}
+                        clickHandler={this.props.clickHandler}
                     />
                 )}
-                {this.state.userId && (
+                {this.props.userId && (
                     <div>
                         <img
                             id="big-profile-img"
                             src={
-                                this.state.imageUrl ||
+                                this.props.imageUrl ||
                                 "https://image.flaticon.com/icons/svg/1338/1338020.svg"
                             }
                             alt=""
@@ -57,9 +48,9 @@ export default class Profile extends React.Component {
                             height="250"
                         ></img>
                         <h4 id="name-surname">
-                            {this.state.first} _ {this.state.last}
+                            {this.props.first} _ {this.props.last}
                         </h4>
-                        <p id="bio">{this.state.bio || "Your bio is empty"}</p>
+                        <p id="bio">{this.props.bio || "No bio added"}</p>
                         {!this.state.BioEditIsVisible && (
                             <div id="edit-bio">
                                 <button
@@ -85,9 +76,8 @@ export default class Profile extends React.Component {
                         <Bioeditor
                             bio={this.state.bio}
                             userId={this.state.userId}
-                            setBio={(text) => {
-                                this.setState({ bio: text });
-                            }}
+                            setBio={this.props.setBio}
+                            closeBioEditor={this.props.closeBioEditor}
                         />
                     )}
                 </div>

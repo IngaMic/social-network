@@ -5,28 +5,22 @@ export default class Bioeditor extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            bio: "",
-            text: "",
+            text: this.props.bio,
             userId: null,
-            bioEditIsVisible: false,
+            // bioEditIsVisible: false,
             error: false,
         };
-    }
-    componentDidMount() {
-        this.setState({
-            userId: this.props.userId,
-            bio: this.props.bio,
-        });
     }
 
     handleSubmit(e) {
         ///we need to store text in var to pass in axios
+        e.preventDefault();
         axios
-            .post("/uploadbio", text)
+            .post("/uploadbio", { bio: this.state.text })
             .then((resp) => {
                 console.log("response from server = bio uploaded", resp.data);
-                // this.props.setBio(this.state.text);
-                this.setState({ bioEditIsVisible: false });
+                this.props.setBio(this.state.text);
+                this.props.closeBioEditor();
             })
             .catch(function (err) {
                 console.log(
@@ -38,7 +32,7 @@ export default class Bioeditor extends React.Component {
     handleChange(e) {
         console.log("HandleChange is reacting, e.target.value", e.target.value);
         this.setState({ text: e.target.value }, () => {
-            console.log("this.state", this.state);
+            console.log("this.state after handleChange Bioeditor", this.state);
         });
     }
     render() {
@@ -55,12 +49,13 @@ export default class Bioeditor extends React.Component {
                     <form onSubmit={(e) => this.handleSubmit(e)}>
                         <textarea
                             onChange={(e) => this.handleChange(e)}
-                            value={this.state.text}
+                            // value={this.state.text}
                             name="text"
                             rows="15"
                             cols="30"
                         ></textarea>
-                        <input type="submit" value="submit"></input>
+                        {/* <input type="submit" value="submit"></input> */}
+                        <button>Submit</button>
                     </form>
                 </div>
             </div>
