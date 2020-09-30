@@ -14,14 +14,20 @@ export default class Profile extends React.Component {
             file: "",
             userId: null,
             clickHandler: null,
+            bioEditIsVisible: false,
             error: false,
         };
+        this.closeBioEditor = this.closeBioEditor.bind(this);
     }
     componentDidMount() {
         this.setState({
             userId: this.props.userId,
             clickHandler: this.props.clickHandler,
         });
+    }
+    closeBioEditor() {
+        console.log("closeBioEditor is running in Profile");
+        this.setState({ bioEditIsVisible: false });
     }
     render() {
         return (
@@ -77,7 +83,9 @@ export default class Profile extends React.Component {
                             bio={this.state.bio}
                             userId={this.state.userId}
                             setBio={this.props.setBio}
-                            closeBioEditor={this.props.closeBioEditor}
+                            closeBioEditor={() => {
+                                this.setState({ bioEditIsVisible: false });
+                            }}
                         />
                     )}
                 </div>

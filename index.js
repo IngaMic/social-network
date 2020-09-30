@@ -433,7 +433,19 @@ app.get("/api/users", async (req, res) => {
 //     }
 // });
 
-// app.get("/initial-friendship-status/:otherUserId", (req, res) => {});
+app.get("/initial-friendship-status", async (req, res) => {
+    try {
+        const { logUserId, otherId } = req.query;
+        var friendship = null;
+        const { rows } = await db.checkFriendship(otherId, logUserId);
+        friendship = rows[0];
+        res.json({
+            friendship,
+        });
+    } catch (err) {
+        console.log("err in getUsers get /users"), err;
+    }
+});
 // app.post("/send-friend-request/:otherUserId", (req, res) => {});
 // app.post("/accept-friend-request/:otherUserId", (req, res) => {});
 // app.post("/end-friendship/:otherUserId", (req, res) => {});

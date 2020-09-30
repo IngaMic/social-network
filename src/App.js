@@ -20,7 +20,7 @@ export default class App extends React.Component {
             logUserId: null,
             userId: null,
             uploaderIsVisible: false,
-            bioEditIsVisible: false,
+            // bioEditIsVisible: false,
             error: false,
         };
     }
@@ -53,10 +53,10 @@ export default class App extends React.Component {
         e.preventDefault();
         this.setState({ uploaderIsVisible: true });
     }
-    closeBioEditor(e) {
-        e.preventDefault();
-        this.setState({ bioEditIsVisible: false });
-    }
+    // closeBioEditor(e) {
+    //     e.preventDefault();
+    //     this.setState({ bioEditIsVisible: false });
+    // }
     render() {
         if (!this.state.userId) {
             return null;
@@ -104,11 +104,11 @@ export default class App extends React.Component {
                                             bio: text,
                                         })
                                     }
-                                    closeBioEditor={() =>
-                                        this.setState({
-                                            bioEditIsVisible: false,
-                                        })
-                                    }
+                                    // closeBioEditor={() =>
+                                    //     this.setState({
+                                    //         bioEditIsVisible: false,
+                                    //     })
+                                    // }
                                     clickHandler={() =>
                                         this.setState({
                                             uploaderIsVisible: true,

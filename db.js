@@ -95,15 +95,15 @@ module.exports.getUserSearch = (val) => {
     );
 };
 
-// module.exports.getFriendRequest = (otherId, userId) => {
-//     return db.query(
-//         `
-//        SELECT * FROM friendships
-//   WHERE (recipient_id = $1 AND sender_id = $2)
-//   OR (recipient_id = $2 AND sender_id = $1)`,
-//         [otherId, userId]
-//     );
-// };
+module.exports.checkFriendship = (otherId, userId) => {
+    return db.query(
+        `
+       SELECT * FROM friendships
+  WHERE (recipient_id = $1 AND sender_id = $2)
+  OR (recipient_id = $2 AND sender_id = $1)`,
+        [otherId, userId]
+    );
+};
 // module.exports.addFriendRequest = (otherId) => {
 //     return db.query(
 //         `

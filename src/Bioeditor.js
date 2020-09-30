@@ -8,8 +8,9 @@ export default class Bioeditor extends React.Component {
             text: this.props.bio,
             userId: null,
             error: false,
-            bioEditIsVisible: false,
+            // bioEditIsVisible: false,
         };
+        console.log("this.props", this.props);
     }
 
     handleSubmit(e) {
@@ -21,6 +22,9 @@ export default class Bioeditor extends React.Component {
                 // console.log("response from server = bio uploaded", resp.data);
                 this.props.setBio(this.state.text);
                 console.log("this.props in BioEditor", this.props);
+                // this.setState({
+                //     bioEditIsVisible: false,
+                // });
                 this.props.closeBioEditor();
             })
             .catch(function (err) {
