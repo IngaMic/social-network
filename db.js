@@ -99,32 +99,35 @@ module.exports.checkFriendship = (otherId, userId) => {
     return db.query(
         `
        SELECT * FROM friendships
-  WHERE (recipient_id = $1 AND sender_id = $2)
-  OR (recipient_id = $2 AND sender_id = $1)`,
+  WHERE (recipient_id = ($1) AND sender_id = ($2))
+  OR (recipient_id = ($2) AND sender_id = ($1))`,
         [otherId, userId]
     );
 };
-// module.exports.addFriendRequest = (otherId) => {
-//     return db.query(
-//         `
-//         INSERT .......  friendships
-//         WHERE id = ($1)`,
-//         [otherId]
-//     );
-// };
-// module.exports.friendshipUpdate = (otherId) => {
-//     return db.query(
-//         `
-//         UPDATE .......  friendships
-//         WHERE id = ($1)`,
-//         [otherId]
-//     );
-// };
-// module.exports.deleteFriend = (otherId) => {
-//     return db.query(
-//         `
-//         DELETE ....... FROM friendships
-//         WHERE id = ($1)`,
-//         [otherId]
-//     );
-// };
+module.exports.addFriendRequest = (otherId, userId) => {
+    return db.query(
+        `
+        INSERT INTO friendships (recipient_id, sender_id)
+    VALUES ($1, $2) RETURNING *`,
+        [otherId, userId]
+    );
+};
+module.exports.friendshipUpdate = (otherId, userId) => {
+    return db.query(
+        `UPDATE friendships
+    SET accepted = true
+    WHERE recipient_id = ($2) AND sender_id = ($1)
+    RETURNING *
+    `,
+        [otherId, userId]
+    );
+};
+module.exports.endFriendship = (otherId, userId) => {
+    return db.query(
+        `
+        DELETE FROM friendships
+        WHERE (recipient_id = ($1) AND sender_id = ($2))
+  OR (recipient_id = ($2) AND sender_id = ($1))`,
+        [otherId, userId]
+    );
+};

@@ -8,11 +8,14 @@ export default class Bioeditor extends React.Component {
             text: this.props.bio,
             userId: null,
             error: false,
-            // bioEditIsVisible: false,
+            bioEditIsVisible: false,
         };
-        console.log("this.props", this.props);
+        this.openBioEditor = this.openBioEditor.bind(this);
     }
-
+    openBioEditor(e) {
+        e.preventDefault();
+        this.setState({ bioEditIsVisible: true });
+    }
     handleSubmit(e) {
         ///we need to store text in var to pass in axios
         e.preventDefault();
@@ -25,7 +28,7 @@ export default class Bioeditor extends React.Component {
                 // this.setState({
                 //     bioEditIsVisible: false,
                 // });
-                this.props.closeBioEditor();
+                this.setState({ bioEditIsVisible: false });
             })
             .catch(function (err) {
                 console.log(
@@ -37,7 +40,7 @@ export default class Bioeditor extends React.Component {
     handleChange(e) {
         //console.log("HandleChange is reacting, e.target.value", e.target.value);
         this.setState({ text: e.target.value }, () => {
-            //console.log("this.state after handleChange Bioeditor", this.state);
+            console.log("this.state after handleChange Bioeditor", this.state);
         });
     }
     render() {
@@ -48,21 +51,29 @@ export default class Bioeditor extends React.Component {
                         <h4 className="err">Something Went Wrong!</h4>
                     )}
                 </div>
-
                 <div>
-                    {/* <p>This must be a bio</p> */}
-                    <form onSubmit={(e) => this.handleSubmit(e)}>
-                        <textarea
-                            onChange={(e) => this.handleChange(e)}
-                            // value={this.state.text}
-                            name="text"
-                            rows="15"
-                            cols="30"
-                        ></textarea>
-                        {/* <input type="submit" value="submit"></input> */}
-                        <button>Submit</button>
-                    </form>
+                    {!this.props.bio && (
+                        <button onClick={this.openBioEditor}>Add</button>
+                    )}
+                    {this.props.bio && (
+                        <button onClick={this.openBioEditor}>Edit</button>
+                    )}
                 </div>
+                {this.state.bioEditIsVisible && (
+                    <div>
+                        <form onSubmit={(e) => this.handleSubmit(e)}>
+                            <textarea
+                                onChange={(e) => this.handleChange(e)}
+                                // value={this.state.text}
+                                name="text"
+                                rows="15"
+                                cols="30"
+                            ></textarea>
+                            {/* <input type="submit" value="submit"></input> */}
+                            <button>Submit</button>
+                        </form>
+                    </div>
+                )}
             </div>
         );
     }

@@ -433,22 +433,90 @@ app.get("/api/users", async (req, res) => {
 //     }
 // });
 
-app.get("/initial-friendship-status", async (req, res) => {
+app.get("/initial-friendship-status/:otherId", async (req, res) => {
     try {
-        const { logUserId, otherId } = req.query;
-        var friendship = null;
+        console.log("req.params", req.params);
+        var otherId = req.params.otherId;
+        var logUserId = req.session.userId;
+        console.log("userId and otherId", logUserId, otherId);
+        var text = null;
+        var next = false;
         const { rows } = await db.checkFriendship(otherId, logUserId);
-        friendship = rows[0];
+        console.log("rows from initial=friendship=status :", rows);
+        if (rows.length == 0) {
+            text = "Send Friend Request";
+        } else if (logUserId == rows[0].sender_id && !rows[0].accepted) {
+            //console.log("should cancel friend req");
+            text = "Cancel Friend Request";
+        } else if (logUserId == rows[0].recipient_id && !rows[0].accepted) {
+            //console.log("should accept friend req");
+            text = "Accept Friend Request";
+        } else if (rows[0].accepted) {
+            text = "End Friendship";
+        }
+        //console.log("text before :", text);
         res.json({
-            friendship,
+            text: text,
+        });
+    } catch (err) {
+        console.log("err in post /initial friendship status"), err;
+    }
+});
+app.post("/api/send-friend-request/:otherId", async (req, res) => {
+    try {
+        var otherId = req.params.otherId;
+        var logUserId = req.session.userId;
+        var text = null;
+        const { rows } = await db.addFriendRequest(otherId, logUserId);
+        console.log("rows from send-friend-req :", rows);
+        if (rows.length == 1) {
+            text = "Cancel Friend Request";
+        }
+        res.json({
+            text: text,
+        });
+    } catch (err) {
+        console.log("err in post /send friend req"), err;
+    }
+});
+app.post("/api/accept-friend-request/:otherId", async (req, res) => {
+    try {
+        var otherId = req.params.otherId;
+        console.log("otherId from accept-friend index.js", otherId);
+        var logUserId = req.session.userId;
+        //console.log("logUserId from index.js", logUserId);
+        var text = null;
+        const { rows } = await db.friendshipUpdate(otherId, logUserId);
+        console.log("rows from /accept-friend-request :", rows);
+        if (rows[0].accepted) {
+            text = "End Friendship";
+        }
+        res.json({
+            text: text,
         });
     } catch (err) {
         console.log("err in getUsers get /users"), err;
     }
 });
-// app.post("/send-friend-request/:otherUserId", (req, res) => {});
-// app.post("/accept-friend-request/:otherUserId", (req, res) => {});
-// app.post("/end-friendship/:otherUserId", (req, res) => {});
+app.post("/api/end-friendship/:otherId", async (req, res) => {
+    try {
+        var otherId = req.params.otherId;
+        console.log("otherId from end-friendship index.js", otherId);
+        var logUserId = req.session.userId;
+        console.log("logUserId from end friendship index.js", logUserId);
+        var text = null;
+        const { rows } = await db.endFriendship(otherId, logUserId);
+        console.log("rows from /end-friendship :", rows);
+        if (rows.length == 0) {
+            text = "Send Friend Request";
+        }
+        res.json({
+            text: text,
+        });
+    } catch (err) {
+        console.log("err in end friendship post "), err;
+    }
+});
 
 app.get("*", function (req, res) {
     if (!req.session.userId) {
