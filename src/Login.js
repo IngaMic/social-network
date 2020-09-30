@@ -81,3 +81,29 @@ export default class Login extends React.Component {
         );
     }
 }
+
+// import { useStatefulFields } from "./useStatefulFields";
+// import { useAuthSubmit } from "./useAuthSubmit";
+
+// export default function Login() {
+//     const [value, handleChange] = useStatefulFields();
+//     const [error, handleSubmit] = useAuthSubmit("/login", value);
+//     return (
+//         <form>
+//             {error && <div>Ooops, something went wrong!</div>}
+//             <input
+//                 onChange={handleChange}
+//                 type="text"
+//                 name="email"
+//                 placeholder="email"
+//             />
+//             <input
+//                 onChange={handleChange}
+//                 type="text"
+//                 name="password"
+//                 placeholder="password"
+//             />
+//             <button onClick={handleSubmit}>Submit</button>
+//         </form>
+//     );
+// }

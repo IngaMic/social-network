@@ -6,6 +6,7 @@ import Uploader from "./Uploader";
 import { BrowserRouter, Route } from "react-router-dom";
 import Profile from "./Profile";
 import OtherProfile from "./OtherProfile";
+import FindPeople from "./FindPeople";
 
 export default class App extends React.Component {
     constructor() {
@@ -52,7 +53,8 @@ export default class App extends React.Component {
         e.preventDefault();
         this.setState({ uploaderIsVisible: true });
     }
-    closeBioEditor() {
+    closeBioEditor(e) {
+        e.preventDefault();
         this.setState({ bioEditIsVisible: false });
     }
     render() {
@@ -97,7 +99,11 @@ export default class App extends React.Component {
                                     imageUrl={this.state.imageUrl}
                                     onClick={this.showUploader}
                                     bio={this.state.bio}
-                                    setBio={this.setBio}
+                                    setBio={(text) =>
+                                        this.setState({
+                                            bio: text,
+                                        })
+                                    }
                                     closeBioEditor={() =>
                                         this.setState({
                                             bioEditIsVisible: false,
@@ -123,6 +129,7 @@ export default class App extends React.Component {
                                 />
                             )}
                         />
+                        <Route exact path="/users" component={FindPeople} />
                     </div>
                 </BrowserRouter>
                 <div>

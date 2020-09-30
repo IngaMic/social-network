@@ -77,3 +77,54 @@ module.exports.updateBio = (bio, userId) => {
         [bio, userId]
     );
 };
+
+module.exports.getUsers = () => {
+    return db.query(
+        `SELECT * FROM users 
+    ORDER BY id DESC LIMIT 3
+    `
+    );
+};
+
+module.exports.getUserSearch = (val) => {
+    return db.query(
+        `SELECT first, last, imageurl, bio FROM users
+         WHERE first ILIKE $1
+        LIMIT 5 `,
+        [val + "%"]
+    );
+};
+
+// module.exports.getFriendRequest = (otherId, userId) => {
+//     return db.query(
+//         `
+//        SELECT * FROM friendships
+//   WHERE (recipient_id = $1 AND sender_id = $2)
+//   OR (recipient_id = $2 AND sender_id = $1)`,
+//         [otherId, userId]
+//     );
+// };
+// module.exports.addFriendRequest = (otherId) => {
+//     return db.query(
+//         `
+//         INSERT .......  friendships
+//         WHERE id = ($1)`,
+//         [otherId]
+//     );
+// };
+// module.exports.friendshipUpdate = (otherId) => {
+//     return db.query(
+//         `
+//         UPDATE .......  friendships
+//         WHERE id = ($1)`,
+//         [otherId]
+//     );
+// };
+// module.exports.deleteFriend = (otherId) => {
+//     return db.query(
+//         `
+//         DELETE ....... FROM friendships
+//         WHERE id = ($1)`,
+//         [otherId]
+//     );
+// };

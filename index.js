@@ -351,6 +351,9 @@ app.get("/user/:id.json", (req, res) => {
             })
             .catch((err) => {
                 console.log("err in getUser index.js", err);
+                return res.json({
+                    error: "Please try again",
+                });
             });
     } else {
         res.sendFile(__dirname + "/index.html");
@@ -391,6 +394,50 @@ app.post("/uploadbio", (req, res) => {
             console.log("trouble with updating /uploadbio", err);
         });
 });
+app.get("/api/users", async (req, res) => {
+    try {
+        const { userInput } = req.query;
+        var users = [];
+        if (!userInput) {
+            const { rows } = await db.getUsers();
+            users = rows;
+        } else {
+            const { rows } = await db.getUserSearch(userInput);
+            users = rows;
+        }
+        res.json({
+            users: users,
+        });
+    } catch (err) {
+        console.log("err in getUsers get /users"), err;
+    }
+});
+// app.get("/users/:userInput.json", (req, res) => {
+//     const val = req.params.userInput;
+//     console.log("val in get /users/:userInput.json :", val);
+//     if (val) {
+//         db.getUserSearch(val)
+//             .then((info) => {
+//                 console.log("info after getUserSeatch /users/:userInput", info);
+//                 var users = info.rows;
+//                 console.log("my users here   :", users);
+//                 return res.json({
+//                     users,
+//                 });
+//             })
+//             .catch((err) => {
+//                 console.log("err in getUserSearch index.js", err);
+//             });
+//     } else {
+//         res.sendFile(__dirname + "/index.html");
+//     }
+// });
+
+// app.get("/initial-friendship-status/:otherUserId", (req, res) => {});
+// app.post("/send-friend-request/:otherUserId", (req, res) => {});
+// app.post("/accept-friend-request/:otherUserId", (req, res) => {});
+// app.post("/end-friendship/:otherUserId", (req, res) => {});
+
 app.get("*", function (req, res) {
     if (!req.session.userId) {
         res.redirect("/welcome");

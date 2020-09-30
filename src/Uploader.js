@@ -4,7 +4,7 @@ import axios from "./axios";
 export default class Uploader extends React.Component {
     constructor(props) {
         super(props);
-        console.log("props :", props);
+        //console.log("props :", props);
         this.state = {
             file: "",
             userId: props.userId,

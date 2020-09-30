@@ -7,8 +7,8 @@ export default class Bioeditor extends React.Component {
         this.state = {
             text: this.props.bio,
             userId: null,
-            // bioEditIsVisible: false,
             error: false,
+            bioEditIsVisible: false,
         };
     }
 
@@ -18,8 +18,9 @@ export default class Bioeditor extends React.Component {
         axios
             .post("/uploadbio", { bio: this.state.text })
             .then((resp) => {
-                console.log("response from server = bio uploaded", resp.data);
+                // console.log("response from server = bio uploaded", resp.data);
                 this.props.setBio(this.state.text);
+                console.log("this.props in BioEditor", this.props);
                 this.props.closeBioEditor();
             })
             .catch(function (err) {
@@ -30,9 +31,9 @@ export default class Bioeditor extends React.Component {
             });
     }
     handleChange(e) {
-        console.log("HandleChange is reacting, e.target.value", e.target.value);
+        //console.log("HandleChange is reacting, e.target.value", e.target.value);
         this.setState({ text: e.target.value }, () => {
-            console.log("this.state after handleChange Bioeditor", this.state);
+            //console.log("this.state after handleChange Bioeditor", this.state);
         });
     }
     render() {
