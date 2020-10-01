@@ -24,7 +24,7 @@ export default class Bioeditor extends React.Component {
             .then((resp) => {
                 // console.log("response from server = bio uploaded", resp.data);
                 this.props.setBio(this.state.text);
-                console.log("this.props in BioEditor", this.props);
+                //console.log("this.props in BioEditor", this.props);
                 // this.setState({
                 //     bioEditIsVisible: false,
                 // });
@@ -52,11 +52,11 @@ export default class Bioeditor extends React.Component {
                     )}
                 </div>
                 <div>
-                    {!this.props.bio && (
-                        <button onClick={this.openBioEditor}>Add</button>
-                    )}
                     {this.props.bio && (
                         <button onClick={this.openBioEditor}>Edit</button>
+                    )}
+                    {!this.props.bio && (
+                        <button onClick={this.openBioEditor}>Add</button>
                     )}
                 </div>
                 {this.state.bioEditIsVisible && (

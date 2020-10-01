@@ -438,9 +438,8 @@ app.get("/initial-friendship-status/:otherId", async (req, res) => {
         console.log("req.params", req.params);
         var otherId = req.params.otherId;
         var logUserId = req.session.userId;
-        console.log("userId and otherId", logUserId, otherId);
+        //console.log("userId and otherId", logUserId, otherId);
         var text = null;
-        var next = false;
         const { rows } = await db.checkFriendship(otherId, logUserId);
         console.log("rows from initial=friendship=status :", rows);
         if (rows.length == 0) {

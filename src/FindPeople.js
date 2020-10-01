@@ -1,11 +1,4 @@
-//must be a function component
-//new Route in BrowserRounter
-// /users might be a good name for this route
-//when it mounts make axios to get 3 newest users : query posted on notes
-//whenever the search happens, hide the latest users and render search users
-
-//////////////////////Pattern Matching in psql = code in part7 ILIKE for db.js
-
+//////////////////////Pattern Matching in psql = ILIKE for db.js
 import React, { useState, useEffect } from "react";
 import axios from "./axios";
 

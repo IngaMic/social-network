@@ -45,15 +45,10 @@ const FriendButton = ({ logUserId, otherId }) => {
     useEffect(() => {
         (async () => {
             try {
-                // console.log(
-                //     "props that we get from OtherProfile in FriendButton ",
-                //     logUserId,
-                //     otherId
-                // );
                 const resp = await axios.get(
                     `/initial-friendship-status/${otherId}`
                 );
-                console.log("resp.data :", resp.data);
+                // console.log("resp.data :", resp.data);
                 setText(resp.data.text);
             } catch (err) {
                 console.log("err : ", err);

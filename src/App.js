@@ -20,13 +20,11 @@ export default class App extends React.Component {
             logUserId: null,
             userId: null,
             uploaderIsVisible: false,
-            // bioEditIsVisible: false,
             error: false,
         };
     }
     componentDidMount() {
         axios.get("/user").then((resp) => {
-            //console.log(" result from get /user in App.js : ", resp);
             this.setState({
                 logUserId: resp.data.userId,
                 userId: resp.data.userId,
@@ -53,10 +51,6 @@ export default class App extends React.Component {
         e.preventDefault();
         this.setState({ uploaderIsVisible: true });
     }
-    // closeBioEditor(e) {
-    //     e.preventDefault();
-    //     this.setState({ bioEditIsVisible: false });
-    // }
     render() {
         if (!this.state.userId) {
             return null;
@@ -104,11 +98,6 @@ export default class App extends React.Component {
                                             bio: text,
                                         })
                                     }
-                                    // closeBioEditor={() =>
-                                    //     this.setState({
-                                    //         bioEditIsVisible: false,
-                                    //     })
-                                    // }
                                     clickHandler={() =>
                                         this.setState({
                                             uploaderIsVisible: true,
