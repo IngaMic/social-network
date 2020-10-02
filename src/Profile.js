@@ -79,12 +79,12 @@ export default class Profile extends React.Component {
                 </div>
                 <div>
                     <Bioeditor
-                        bio={this.state.bio}
+                        bio={this.props.bio}
                         userId={this.state.userId}
                         setBio={this.props.setBio}
-                        // closeBioEditor={() => {
-                        //     this.setState({ bioEditIsVisible: false });
-                        // }}
+                    // closeBioEditor={() => {
+                    //     this.setState({ bioEditIsVisible: false });
+                    // }}
                     />
                 </div>
             </div>

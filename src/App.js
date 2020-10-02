@@ -7,6 +7,10 @@ import { BrowserRouter, Route } from "react-router-dom";
 import Profile from "./Profile";
 import OtherProfile from "./OtherProfile";
 import FindPeople from "./FindPeople";
+import Friends from "./Friends";
+/////////////////////////////////////////////////////////////
+//Add a route from the Friends component inside the BrowserRouter
+
 
 export default class App extends React.Component {
     constructor() {
@@ -119,6 +123,11 @@ export default class App extends React.Component {
                             )}
                         />
                         <Route exact path="/users" component={FindPeople} />
+                        {Profile && (
+                            <Link to="/users">Find Some Friends!</Link>
+
+                        )}
+                        <Link to="/friends">Friends List</Link>
                     </div>
                 </BrowserRouter>
                 <div>
@@ -135,6 +144,10 @@ export default class App extends React.Component {
                         />
                     )}
                 </div>
+
+
+
+
             </div>
         );
     }

@@ -4,7 +4,7 @@ import axios from "./axios";
 export default class Uploader extends React.Component {
     constructor(props) {
         super(props);
-        //console.log("props :", props);
+        console.log("props :", props);
         this.state = {
             file: "",
             userId: props.userId,
@@ -48,6 +48,7 @@ export default class Uploader extends React.Component {
     render() {
         return (
             <div id="uploader">
+                <h1 className="x" onClick={this.props.closeUploader}>x</h1>
                 <img
                     id="big-profile-img"
                     src={

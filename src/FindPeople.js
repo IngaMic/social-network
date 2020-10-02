@@ -1,6 +1,7 @@
 //////////////////////Pattern Matching in psql = ILIKE for db.js
 import React, { useState, useEffect } from "react";
 import axios from "./axios";
+import { Link } from "react-router-dom";
 
 const FindPeople = () => {
     const [userInput, setUserInput] = useState("");
@@ -38,23 +39,28 @@ const FindPeople = () => {
                 name="userInput"
                 placeholder="type here"
             />
-            <h1>Users:</h1>
+            {!userInput && (
+                <h2>Look you just joined:</h2>
+            )}
+
             {users.map((user, i) => {
                 return (
                     <div key={i}>
-                        <img
-                            id="search-img"
-                            src={
-                                user.imageurl ||
-                                "https://image.flaticon.com/icons/svg/1338/1338020.svg"
-                            }
-                            alt="{user.first} {user.last}"
-                            width="200"
-                            height="250"
-                        ></img>
-                        <p>
-                            {user.first}_{user.last}
-                        </p>
+                        <Link to={`/user/${user.id}`} >
+                            <img
+                                id="search-img"
+                                src={
+                                    user.imageurl ||
+                                    "https://image.flaticon.com/icons/svg/1338/1338020.svg"
+                                }
+                                alt="{user.first} {user.last}"
+                                width="200"
+                                height="250"
+                            ></img>
+                            <p>
+                                {user.first}_{user.last}
+                            </p>
+                        </Link>
                     </div>
                 );
             })}

@@ -40,7 +40,7 @@ export default class Bioeditor extends React.Component {
     handleChange(e) {
         //console.log("HandleChange is reacting, e.target.value", e.target.value);
         this.setState({ text: e.target.value }, () => {
-            console.log("this.state after handleChange Bioeditor", this.state);
+            // console.log("this.state after handleChange Bioeditor", this.state);
         });
     }
     render() {
@@ -52,10 +52,10 @@ export default class Bioeditor extends React.Component {
                     )}
                 </div>
                 <div>
-                    {this.props.bio && (
+                    {!this.state.bioEditIsVisible && this.props.bio && (
                         <button onClick={this.openBioEditor}>Edit</button>
                     )}
-                    {!this.props.bio && (
+                    {!this.state.bioEditIsVisible && !this.props.bio && (
                         <button onClick={this.openBioEditor}>Add</button>
                     )}
                 </div>
@@ -64,7 +64,7 @@ export default class Bioeditor extends React.Component {
                         <form onSubmit={(e) => this.handleSubmit(e)}>
                             <textarea
                                 onChange={(e) => this.handleChange(e)}
-                                // value={this.state.text}
+                                //value={this.props.bio}
                                 name="text"
                                 rows="15"
                                 cols="30"

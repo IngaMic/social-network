@@ -1,7 +1,7 @@
 const spicedPg = require("spiced-pg");
 var db = spicedPg(
     process.env.DATABASE_URL ||
-        "postgres:postgres:postgres@localhost:5432/users"
+    "postgres:postgres:postgres@localhost:5432/users"
 );
 
 module.exports.registerUser = (first, last, email, password) => {
@@ -80,7 +80,7 @@ module.exports.updateBio = (bio, userId) => {
 
 module.exports.getUsers = () => {
     return db.query(
-        `SELECT * FROM users 
+        `SELECT id, first, last, imageurl, bio FROM users 
     ORDER BY id DESC LIMIT 3
     `
     );
@@ -88,7 +88,7 @@ module.exports.getUsers = () => {
 
 module.exports.getUserSearch = (val) => {
     return db.query(
-        `SELECT first, last, imageurl, bio FROM users
+        `SELECT id, first, last, imageurl, bio FROM users
          WHERE first ILIKE $1
         LIMIT 5 `,
         [val + "%"]
@@ -129,5 +129,19 @@ module.exports.endFriendship = (otherId, userId) => {
         WHERE (recipient_id = ($1) AND sender_id = ($2))
   OR (recipient_id = ($2) AND sender_id = ($1))`,
         [otherId, userId]
+    );
+};
+
+module.exports.getFriends = (userId) => {
+    return db.query(
+        `
+  SELECT users(id), first, last, imageurl, accepted
+  FROM friendships
+  JOIN users
+  ON (accepted = false AND recipient_id = ($1) AND sender_id = users(id))
+  OR (accepted = true AND recipient_id = ($1) AND sender_id = users(id))
+  OR (accepted = true AND sender_id = ($1) AND recipient_id = users(id))
+`,
+        [userId]
     );
 };

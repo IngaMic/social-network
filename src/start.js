@@ -1,8 +1,15 @@
-import Axios from "axios";
+import Axios from "./axios";
 import React, { useState, useEffect } from "react";
+import { reducer } from "reducer";
 import ReactDOM from "react-dom";
-import App from "./app";
+import App from "./App";
 import Welcome from "./Welcome";
+import { Provider } from "react-redux";
+import { createStore, applyMiddleware } from 'redux';
+import reduxPromise from 'redux-promise';
+import { composeWithDevTools } from 'redux-devtools-extension';
+
+const store = createStore(reducer, composeWithDevTools(applyMiddleware(reduxPromise)));
 
 let component;
 if (location.pathname === "/welcome") {
@@ -10,7 +17,16 @@ if (location.pathname === "/welcome") {
     component = <Welcome />;
 } else {
     // component = <p>My Logo</p>;
-    component = <App />;
+    // component = <App />; /////PREVIOUS
+
+    /////////////////Changed HERE://///////////////
+    //stop passing "<App/>" to "ReactDom" and pass it to the <Provider>
+    component = (
+        <Provider store={store}>
+            <App />
+        </Provider>
+    );
+
 }
 
 ReactDOM.render(component, document.querySelector("main"));
