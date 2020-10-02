@@ -49,10 +49,35 @@ p {
     top: 10px;
     position: absolute;
 }
+.friends-img{
+    margin: 15px;
+    height: 160px;
+    width: 180px;
+    object-fit: cover;
+}
+#friendslist{
+height: 470px;
+}
+#wannabeslist{
+   height: 450px;
+}
+.friend{
+   
+    border: 1px solid lightblue;
+    float: left;
+  margin: 10px;
+}
+.wannabe{
+  
+    border: 1px solid lightblue;
+    float: left;
+  margin: 10px;
+}
 #big-profile-img {
     left: 15px;
     top: 100px;
     position: absolute;
+
 }
 #name-surname {
     font-size: 25px;

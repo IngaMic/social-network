@@ -5,6 +5,40 @@ export default function (state = {}, action) {
             users: action.users
         });
     }
+    console.log("Action :", action)
+    if (action.type == 'ADD_FRIEND') {
+        console.log("A WORD")
+        state = {
+            ...state,
+            users: state.users.map((user) => {
+                console.log("action.id", action.id);
+                console.log("user.id", user.id);
+                if (action.id == user.id) {
+                    return {
+                        ...user,
+                        accepted: true,
+                    };
+                } else {
+                    return user;
+                }
+            }),
+        }
+    }
+    if (action.type == 'REMOVE_FRIEND') {
+        state = {
+            ...state,
+            users: state.users.map((user) => {
+                if (action.id == user.id) {
+                    return {
+                        ...user,
+                        accepted: null,
+                    };
+                } else {
+                    return user;
+                }
+            }),
+        }
+    }
     return state;
 }
 

@@ -1,18 +1,32 @@
 import axios from "./axios";
-import { myActionCreator } from "./actions"
 //ACTION IS JUST AN OBJECT!!
 
 export async function receiveFriends() {
-    const { data } = await axios.get('/friends.json');
+    const { data } = await axios.get('/api/friends');
+    console.log("data.users from actions.js", data)
     return {
         type: 'RECEIVE_FRIENDS',
         users: data.users
     };
 }
-
-////////////////////////////////////////////////
-// add functions :  acceptFriendReq, endFriendship
-
+export async function acceptFriendReq(otherId) {
+    console.log("other id before updaring to friends in actions.js", otherId) //works
+    const { data } = await axios.post(`/api/accept-friend-request/${otherId}`);
+    console.log("data from actions.js addFriendReq", data)
+    return {
+        type: 'ADD_FRIEND',
+        id: otherId,
+    };
+}
+export async function endFriendship(otherId) {
+    console.log("other id before endingFriendship in actions.js", otherId) //works
+    const { data } = await axios.post(`/api/end-friendship/${otherId}`);
+    console.log("data from actions.js removeFriend", data)
+    return {
+        type: 'REMOVE_FRIEND',
+        id: otherId,
+    };
+}
 
 
 // export function myActionCreator(bio) {

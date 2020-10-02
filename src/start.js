@@ -1,14 +1,16 @@
-import Axios from "./axios";
+import axios from "./axios";
 import React, { useState, useEffect } from "react";
-import { reducer } from "reducer";
+import { HashRouter, Route, Link, Switch } from 'react-router-dom';
+import { Provider } from "react-redux";
 import ReactDOM from "react-dom";
 import App from "./App";
 import Welcome from "./Welcome";
-import { Provider } from "react-redux";
+import reducer from './reducers';
 import { createStore, applyMiddleware } from 'redux';
 import reduxPromise from 'redux-promise';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
+////////////ERROR ABOUT reducer:
 const store = createStore(reducer, composeWithDevTools(applyMiddleware(reduxPromise)));
 
 let component;

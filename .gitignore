@@ -2,8 +2,7 @@ node_modules
 .DS_Store
 secrets.json
 font
-config.json
-s3.js
+
 
 
 profilepic.test.js

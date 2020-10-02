@@ -127,6 +127,7 @@ export default class App extends React.Component {
                             <Link to="/users">Find Some Friends!</Link>
 
                         )}
+                        <Route exact path="/friends" component={Friends} />
                         <Link to="/friends">Friends List</Link>
                     </div>
                 </BrowserRouter>

@@ -433,6 +433,21 @@ app.get("/api/users", async (req, res) => {
 //     }
 // });
 
+app.get("/api/friends", async (req, res) => {
+    //console.log("I am getting a req in /friends");
+    try {
+        var userId = req.session.userId;
+        var users = [];
+        const { rows } = await db.getFriends(userId);
+        users = rows;
+        console.log("users from get /api/friends", users)
+        res.json({
+            users: users,
+        });
+    } catch (err) {
+        console.log("err in getUsers get /friends"), err;
+    }
+});
 app.get("/initial-friendship-status/:otherId", async (req, res) => {
     try {
         console.log("req.params", req.params);
@@ -480,6 +495,7 @@ app.post("/api/send-friend-request/:otherId", async (req, res) => {
 });
 app.post("/api/accept-friend-request/:otherId", async (req, res) => {
     try {
+        console.log("I am getting a req when updating to friends")
         var otherId = req.params.otherId;
         console.log("otherId from accept-friend index.js", otherId);
         var logUserId = req.session.userId;
@@ -494,7 +510,7 @@ app.post("/api/accept-friend-request/:otherId", async (req, res) => {
             text: text,
         });
     } catch (err) {
-        console.log("err in getUsers get /users"), err;
+        console.log("err in getUsers post accept friend", err)
     }
 });
 app.post("/api/end-friendship/:otherId", async (req, res) => {
