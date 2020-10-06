@@ -151,6 +151,15 @@ module.exports.getChatMessages = () => {
         `SELECT first, last, imageurl, message FROM users
     JOIN chat
     ON users.id = chat.userid
-    ORDER BY created_at DESC LIMIT 10`
+    ORDER BY chat.created_at DESC LIMIT 10`
+    );
+};
+
+module.exports.addMessage = (userid, message) => {
+    return db.query(
+        `
+    INSERT INTO chat (userid, message)
+    VALUES ($1, $2) RETURNING * `,
+        [userid, message]
     );
 };

@@ -128,9 +128,16 @@ margin-right: 45px;
  color: rgb(165, 7, 7);
 }
 
-.chat-container {
-    height: 300px;
+#messages {
+    height: 350px;
     width: 80%;
     text-align:center;
     overflow-y: scroll;
+}
+.messagers-img {
+  margin: 5px;
+    height: 60px;
+    width: 80px;
+    object-fit: cover;
+
 }

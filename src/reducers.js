@@ -7,7 +7,6 @@ export default function (state = {}, action) {
     }
     console.log("Action :", action)
     if (action.type == 'ADD_FRIEND') {
-        console.log("A WORD")
         state = {
             ...state,
             users: state.users.map((user) => {
@@ -44,6 +43,13 @@ export default function (state = {}, action) {
         state = Object.assign({}, state, {
             chatMessages: action.msgs,
         });
+    }
+    if (action.type == 'ADD_MESSAGE') {
+        console.log("action.msg in reducers ;", action.msg);
+        state = {
+            ...state,
+            chatMessages: state.chatMessages.concat(action.msg)
+        }
     }
 
 

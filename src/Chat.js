@@ -9,15 +9,15 @@ export default function Chat() {
 
     useEffect(() => {
         // console.log("Chat hooks component mounted");
-        // console.log("elemRef is :", elemRef);
-        // console.log("scrollTop", elemRef.current.scrollTop);
-        // console.log("clientHeight", elemRef.current.clientHeight);
-        // console.log("scrollHeight", elemRef.current.scrollHeight);
+        console.log("elemRef is :", elemRef);
+        console.log("scrollTop", elemRef.current.scrollTop);
+        console.log("clientHeight", elemRef.current.clientHeight);
+        console.log("scrollHeight", elemRef.current.scrollHeight);
 
         //scrollTop must be equal scrollHeight - clientHeight
-        if (chatMessages) { elemRef.current.scrollTop = elemRef.current.scrollHeight - elemRef.current.clientHeight; }
+        elemRef.current.scrollTop = elemRef.current.scrollHeight - elemRef.current.clientHeight;
 
-    }, []); //array has to have newMsg in it
+    }, [chatMessages]); //array has to have newMsg in it
     const keyCheck = e => {
         // console.log(" value : ", e.target.value);
         // console.log("key pressed  :", e.key);
@@ -35,10 +35,10 @@ export default function Chat() {
         return (
             <div>
                 <p className="chat-title"> Welcome to Chat!</p>
-                <div id="messages">
+                <div id="messages" ref={elemRef}>
                     {!chatMessages.length && <h5>No Messages Yet!</h5>}
                     {!!chatMessages.length &&
-                        <div id="messages-container">
+                        <div id="messages-container" >
                             {chatMessages.map((message, i) => (
                                 <div className="message" key={i}>
                                     <img className="messagers-img" src={message.imageurl ||

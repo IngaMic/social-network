@@ -15,6 +15,7 @@ const { s3Url } = require("./config.json");
 const uidSafe = require("uid-safe");
 const s3 = require("./s3.js");
 const multer = require("multer");
+const { brotliDecompress } = require("zlib");
 
 app.use(compression());
 app.use(express.static("./public"));
@@ -610,7 +611,8 @@ io.on("connection", function (socket) {
     // a good place to retrieve out last 10 chat messages // kicks in after the user logs-in; all code inside this io.on(.....)
     //inside .then( we are going to emit the event for socket.js) -> then dispatch an action(.js) => reducer -> add it to redux
     db.getChatMessages().then(({ rows }) => {
-        console.log("these are my rows after getChatMessages in index.js", rows)
+        console.log("these are my rows after getChatMessages in index.js", rows.reverse());
+        //var msgs = rows.reverse();
         io.sockets.emit("chatMessages", rows);
     });
 
@@ -618,14 +620,25 @@ io.on("connection", function (socket) {
     //2arg info that comes along with the emit:
     socket.on("message", newMsg => {
         console.log("This message is comming from chat.js component :", newMsg);
-
         console.log("users who sent this newMsg id :", socket.request.session.userId);
-
-        //now we can do a new db.addMessage to chats
-        // now we do db.getUser (first, last, imageurl)
-        //make sure your new chat message object looks like the one we receive from the first 10msg
-        //when object is there (last10) we emit it for users to see:
-        io.sockets.emit("addChatMessage", newMsg) //this is for demo only goes to socket.js
-    });
-
+        db.addMessage(socket.request.session.userId, newMsg).then(({ rows }) => {
+            console.log("these are my rows after addMessage in index.js", rows)
+            db.getUser(socket.request.session.userId).then((info) => {
+                var list = info.rows;
+                console.log("my list here after getUser in message handling indez.js :", list);
+                var message = {
+                    first: list[0].first,
+                    last: list[0].last,
+                    imageurl: list[0].imageurl,
+                    message: rows[0].message,
+                }
+                console.log(" newly constructed message in index.js :", message);
+                io.sockets.emit("chatMessage", message);
+            }).catch(err => console.log(err))
+            //now we can do a new db.addMessage to chats
+            // now we do db.getUser (first, last, imageurl)
+            //make sure your new chat message object looks like the one we receive from the first 10msg
+            //when object is there (last10) we emit it for users to see:
+        }).catch(err => console.log("error in addMessage :", err))
+    })
 })

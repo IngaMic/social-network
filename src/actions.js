@@ -34,6 +34,13 @@ export async function chatMessages(msgs) {
         msgs,
     };
 }
+export async function chatMessage(msg) {
+    console.log("msg in actions.js that we get from socket.js", msg)
+    return {
+        type: 'ADD_MESSAGE',
+        msg,
+    };
+}
 
 
 // export function myActionCreator(bio) {
