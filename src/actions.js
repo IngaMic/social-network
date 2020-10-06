@@ -27,6 +27,13 @@ export async function endFriendship(otherId) {
         id: otherId,
     };
 }
+export async function chatMessages(msgs) {
+    console.log("msgs in actions.js that we get from socket.js", msgs)
+    return {
+        type: 'RECEIVE_MESSAGES',
+        msgs,
+    };
+}
 
 
 // export function myActionCreator(bio) {

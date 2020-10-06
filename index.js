@@ -1,5 +1,7 @@
 const express = require("express");
 const app = express();
+const server = require('http').Server(app);
+const io = require('socket.io')(server, { origins: 'localhost:8080' });
 const compression = require("compression");
 const db = require("./db.js");
 const bc = require("./bc.js");
@@ -13,6 +15,7 @@ const { s3Url } = require("./config.json");
 const uidSafe = require("uid-safe");
 const s3 = require("./s3.js");
 const multer = require("multer");
+
 app.use(compression());
 app.use(express.static("./public"));
 app.use(express.json());
@@ -30,12 +33,23 @@ if (process.env.NODE_ENV != "production") {
 }
 
 ////////////////////////////////////////////////////////////////
-app.use(
-    cookieSession({
-        secret: `I'm always angry.`,
-        maxAge: 1000 * 60 * 60 * 24 * 14,
-    })
-);
+// app.use(
+//     cookieSession({
+//         secret: `I'm always angry.`,
+//         maxAge: 1000 * 60 * 60 * 24 * 14,
+//     })
+// );
+
+const cookieSessionMiddleware = cookieSession({
+    secret: `I'm always angry.`,
+    maxAge: 1000 * 60 * 60 * 24 * 90
+});
+
+app.use(cookieSessionMiddleware);
+io.use(function (socket, next) {
+    cookieSessionMiddleware(socket.request, socket.request.res, next);
+});
+
 app.use(csurf());
 
 app.use(function (req, res, next) {
@@ -533,6 +547,46 @@ app.post("/api/end-friendship/:otherId", async (req, res) => {
     }
 });
 
+// //the problem with a socket.io - all the communication after that is not HTTP = so there are no cookies
+// //another problematic case could be having more than one server...
+// io.on('connection', function (socket) {
+//     //const {userId} = socket.request.session;
+
+//     console.log(`socket with the id ${socket.id} is now connected`);
+
+//     socket.on('disconnect', function () {
+//         console.log(`socket with the id ${socket.id} is now disconnected`);
+//     });
+
+//     socket.on('thanks', function (data) {
+//         console.log(data);
+//     });
+//     socket.on("greetingClicked", function (data) {
+//         console.log(data);
+//         socket.emit("funckyChicken", {
+//             chicken: "Chic Chic Chic"
+//         });
+//         /////////////two ways to send message to all connected clients
+//         /////////1:
+//         io.emit("discoDuck", {
+//             duck: "Quack Quack"
+//         })
+//         /////////2 (and we will not use it) :
+//         // socket.broadcast.emit("discoDuck", {
+//         //     duck: "Quack Quack"
+//         // })
+//         /////////3 (for private messages) :
+//         ///////////you need to know a soclet id
+//         // io.sockets.sockets[  mySocketId  ].emit("discoDuck", {
+//         //     duck: "Quack Quack"
+//         // })
+//     });
+
+//     socket.emit('welcome', {
+//         message: 'Welome. It is nice to see you'
+//     });
+// });
+
 app.get("*", function (req, res) {
     if (!req.session.userId) {
         res.redirect("/welcome");
@@ -542,6 +596,36 @@ app.get("*", function (req, res) {
 });
 /////////////////////////////////////////////////////////////////////
 
-app.listen(8080, function () {
+server.listen(8080, function () {
     console.log("server is listening...");
 });
+////////////////////////////////////////////////////////////////////
+
+io.on("connection", function (socket) {
+    console.log(`socket.id ${socket.id} is now connected`);
+    if (!socket.request.session.userId) {
+        return socket.disconnect(true);
+    }
+
+    // a good place to retrieve out last 10 chat messages // kicks in after the user logs-in; all code inside this io.on(.....)
+    //inside .then( we are going to emit the event for socket.js) -> then dispatch an action(.js) => reducer -> add it to redux
+    db.getChatMessages().then(({ rows }) => {
+        console.log("these are my rows after getChatMessages in index.js", rows)
+        io.sockets.emit("chatMessages", rows);
+    });
+
+    //1srg = event that comes from chat.js
+    //2arg info that comes along with the emit:
+    socket.on("message", newMsg => {
+        console.log("This message is comming from chat.js component :", newMsg);
+
+        console.log("users who sent this newMsg id :", socket.request.session.userId);
+
+        //now we can do a new db.addMessage to chats
+        // now we do db.getUser (first, last, imageurl)
+        //make sure your new chat message object looks like the one we receive from the first 10msg
+        //when object is there (last10) we emit it for users to see:
+        io.sockets.emit("addChatMessage", newMsg) //this is for demo only goes to socket.js
+    });
+
+})

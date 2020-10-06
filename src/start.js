@@ -9,6 +9,7 @@ import reducer from './reducers';
 import { createStore, applyMiddleware } from 'redux';
 import reduxPromise from 'redux-promise';
 import { composeWithDevTools } from 'redux-devtools-extension';
+import { init } from "./socket";
 
 ////////////ERROR ABOUT reducer:
 const store = createStore(reducer, composeWithDevTools(applyMiddleware(reduxPromise)));
@@ -17,16 +18,17 @@ let component;
 if (location.pathname === "/welcome") {
     //location.pathname lives in your url
     component = <Welcome />;
-} else {
+} else { //I need to take care that it is only the loged in user can see this 
     // component = <p>My Logo</p>;
     // component = <App />; /////PREVIOUS
 
     /////////////////Changed HERE://///////////////
     //stop passing "<App/>" to "ReactDom" and pass it to the <Provider>
+    init(store);
     component = (
-        <Provider store={store}>
+        < Provider store={store} >
             <App />
-        </Provider>
+        </Provider >
     );
 
 }
@@ -92,4 +94,31 @@ ReactDOM.render(component, document.querySelector("main"));
 //             })}
 //         </div>
 //     );
+// }
+
+///////////////////////////CLASS NOTES////////////
+/////////////////////////////SOCKETS////////////////
+// import * as io from "socket.io-client";
+
+// const socket = io.connect();
+
+// socket.on("funkyChicken", data => {
+//     console.log(data);
+// });
+// socket.on("discoDuck", data => {
+//     console.log(data);
+// });
+
+// function HelloWorld() {
+//     return (
+//         <div onClick={
+//             () => {
+//                 socket.emit("greetingClicked", {
+//                     "clicked": "Hello, World!"
+//                 })
+//             }
+//         }>
+
+//         </div>
+//     )
 // }

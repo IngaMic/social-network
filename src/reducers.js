@@ -39,6 +39,14 @@ export default function (state = {}, action) {
             }),
         }
     }
+    if (action.type == 'RECEIVE_MESSAGES') {
+        console.log("action.msgs in reducers ;", action.msgs)
+        state = Object.assign({}, state, {
+            chatMessages: action.msgs,
+        });
+    }
+
+
     return state;
 }
 

@@ -8,6 +8,7 @@ import Profile from "./Profile";
 import OtherProfile from "./OtherProfile";
 import FindPeople from "./FindPeople";
 import Friends from "./Friends";
+import Chat from "./Chat";
 /////////////////////////////////////////////////////////////
 //Add a route from the Friends component inside the BrowserRouter
 
@@ -129,6 +130,10 @@ export default class App extends React.Component {
                         )}
                         <Route exact path="/friends" component={Friends} />
                         <Link to="/friends">Friends List</Link>
+                    </div>
+                    <div>
+                        <Route exact path="/chat" component={Chat} />
+                        <Link to="/chat">Chat</Link>
                     </div>
                 </BrowserRouter>
                 <div>

@@ -127,3 +127,10 @@ margin-right: 45px;
 .x:hover {
  color: rgb(165, 7, 7);
 }
+
+.chat-container {
+    height: 300px;
+    width: 80%;
+    text-align:center;
+    overflow-y: scroll;
+}

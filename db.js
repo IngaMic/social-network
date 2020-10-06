@@ -145,3 +145,12 @@ module.exports.getFriends = (userId) => {
         [userId]
     );
 };
+
+module.exports.getChatMessages = () => {
+    return db.query(
+        `SELECT first, last, imageurl, message FROM users
+    JOIN chat
+    ON users.id = chat.userid
+    ORDER BY created_at DESC LIMIT 10`
+    );
+};
