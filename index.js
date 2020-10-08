@@ -547,6 +547,10 @@ app.post("/api/end-friendship/:otherId", async (req, res) => {
         console.log("err in end friendship post "), err;
     }
 });
+app.get("/logout", (req, res) => {
+    req.session = null;
+    res.redirect("/");
+})
 
 // //the problem with a socket.io - all the communication after that is not HTTP = so there are no cookies
 // //another problematic case could be having more than one server...

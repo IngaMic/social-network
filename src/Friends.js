@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { receiveFriends, acceptFriendReq, endFriendship } from './actions'; //and more :
-// acceptFriendReq, endFriendship
+import { receiveFriends, acceptFriendReq, endFriendship } from './actions';
 
 export default function FriendsWannabes() {
     const dispatch = useDispatch();

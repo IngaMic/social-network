@@ -5,7 +5,6 @@ import { useSelector } from "react-redux";
 export default function Online() {
 
     const onlineUsers = useSelector((state) => state && state.onlineUsers);
-    // console.log(" Chat.js - here is a list of my last chatMessages :", chatMessages);
 
     useEffect(() => {
         // console.log("Onlineusers hooks component mounted");
@@ -17,7 +16,6 @@ export default function Online() {
             <div id="online-users">
                 {!onlineUsers.length && <h5>No users online!</h5>}
                 {!!onlineUsers.length &&
-
                     <div id="online-users-container" >
                         <h3 className="online-greet">Online:</h3>
                         {onlineUsers.map((onlineUser, i) => (

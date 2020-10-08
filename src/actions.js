@@ -42,19 +42,18 @@ export async function chatMessage(msg) {
     };
 }
 export async function onlineUsers(onlineUsers) {
-    //console.log("onlineUsers in actions.js that we get from socket.js", onlineUsers)
     return {
         type: 'ONLINE_USERS',
         onlineUsers,
     };
 }
 export async function userLeft(onlineUsers) {
-    //console.log("onlineUsers in actions.js that we get from socket.js", onlineUsers)
     return {
         type: 'USER_LEFT',
         onlineUsers,
     };
 }
+
 // export function myActionCreator(bio) {
 // //if we want anything async, we do it here:
 // const data = await Axios.post("/update-bio", {bio})

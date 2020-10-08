@@ -9,6 +9,7 @@ import OtherProfile from "./OtherProfile";
 import FindPeople from "./FindPeople";
 import Friends from "./Friends";
 import Chat from "./Chat";
+// import Logout from "./Logout";
 /////////////////////////////////////////////////////////////
 //Add a route from the Friends component inside the BrowserRouter
 
@@ -142,6 +143,12 @@ export default class App extends React.Component {
                             <div className="chat-link">
                                 <Link to="/chat">Chat</Link>
                             </div>
+                        )}
+                    </div>
+                    <div className="logout-link">
+                        {Profile && (
+                            <a href="/logout">Logout</a>
+
                         )}
                     </div>
                 </BrowserRouter>

@@ -13,7 +13,6 @@ export const init = store => {
                 store.dispatch(
                     chatMessages(msgs)
                 )
-                //console.log("msgs that we get in socket.js from index.js", msgs)
             }
         );
 
@@ -36,11 +35,5 @@ export const init = store => {
                 userLeft(usersOnline)
             )
         );
-
-
-        // socket.on("addChatMessage", msg => {
-        //     console.log(`my message is : ${msg
-        //         }`)
-        // })
     }
 };

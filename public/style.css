@@ -196,3 +196,10 @@ margin-right: 45px;
     position: relative;
     margin: 10px;
 }
+.logout-link {
+    float: right;
+    top: 10px;
+    right: 10px;
+    position: relative;
+    margin: 10px;
+}
