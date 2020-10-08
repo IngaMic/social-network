@@ -53,18 +53,54 @@ p {
     position: absolute;
 }
 .online-users-img{
+    border-radius: 50%;
     height: 60px;
     width: 60px;
-    margin: 5px;
+    margin: 5px auto;
+}
+.online-user p {
+    font-size: 15px;
+    margin-top: 0px;
+    margin-bottom: 10px;
 }
 .online-greet {
     margin: 10px;
 }
-#online-users-container {
-    width: 300px;
+.chat {
+    display: inline-table;
+    align-items: center;
+    width: 80%;
+    padding-top: 15px;
+    height: 90%;
+    text-align: center;
+}
+.logo {
+    height:50px;
+    width: 100px;
+    margin-left: 15px;
+}
+.textarea1 {
+    width: 60%;
+    height: 80px;
+    margin: 10px;
+    margin-top: 20px;
     border: 3px solid black;
-     display: flex;
-    align-items: flex-end;
+    border-radius: 10px;
+    font-size: 15px;
+    padding: 15px;
+}
+#online-users-container {
+    width: 100px;
+    border: 1px solid black;
+    border-radius: 10px;
+    /* display: flex; */
+    text-align: center;
+    height: auto;
+}
+#online-users {
+    position: absolute;
+    right: 10px;
+    top: 170px;
 }
 .friends-img{
     margin: 15px;
@@ -146,14 +182,33 @@ margin-right: 45px;
 }
 
 #messages {
-    height: 350px;
+    box-sizing: border-box;
+    height: 380px;
     width: 80%;
     text-align:center;
     overflow-y: scroll;
+    margin-left: 100px;;
+}
+.message {
+    border: 1px solid black;
+    border-radius: 10px;
+    background: #ffffff;
+    padding: 15px;
+    display: block;
+    overflow: hidden;
+    margin-bottom: 15px;  
+}
+.sender {
+    float: left;
+   
+}
+.sender p {
+     font-size: 15px;
 }
 .messagers-img {
-  margin: 5px;
-    height: 60px;
+    border-radius: 50%;
+    margin: 5px;
+    height: 80px;
     width: 80px;
     object-fit: cover;
 

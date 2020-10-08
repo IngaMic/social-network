@@ -63,7 +63,7 @@ export default class App extends React.Component {
         }
         return (
             <div>
-                <h2>Combat</h2>
+                <h2 className="logo">Combat</h2>
                 {/* {this.state.userId && (
                     <Profile
                         userId={this.state.userId}
@@ -124,7 +124,6 @@ export default class App extends React.Component {
                                 />
                             )}
                         />
-
                         <Route exact path="/users" component={FindPeople} />
                         <div className="users-link">
                             {Profile && (
@@ -136,20 +135,16 @@ export default class App extends React.Component {
                         <div className="friends-link">
                             <Link to="/friends">Friends List</Link>
                         </div>
-                    </div>
-                    <div>
-                        <Route exact path="/chat" component={Chat} />
-                        {Profile && (
+
+                        <div>
+                            <Route exact path="/chat" component={Chat} />
                             <div className="chat-link">
                                 <Link to="/chat">Chat</Link>
                             </div>
-                        )}
-                    </div>
-                    <div className="logout-link">
-                        {Profile && (
+                        </div>
+                        <div className="logout-link">
                             <a href="/logout">Logout</a>
-
-                        )}
+                        </div>
                     </div>
                 </BrowserRouter>
                 <div>

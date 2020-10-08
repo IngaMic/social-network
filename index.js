@@ -642,8 +642,8 @@ io.on("connection", function (socket) {
     //inside .then( we are going to emit the event for socket.js) -> then dispatch an action(.js) => reducer -> add it to redux
     db.getChatMessages().then(({ rows }) => {
         // console.log("these are my rows after getChatMessages in index.js", rows.reverse());
-        //var msgs = rows.reverse();
-        io.sockets.emit("chatMessages", rows);
+        var msgs = rows.reverse();
+        io.sockets.emit("chatMessages", msgs);
     });
 
     //1srg = event that comes from chat.js

@@ -35,27 +35,29 @@ export default function Chat() {
         return null;
     } else {
         return (
-            <div>
+            <div className="chat">
                 <Online />
-                <p className="chat-title"> Welcome to Chat!</p>
+                <p className="chat-title"> Welcome to Community Chat!</p>
                 <div id="messages" ref={elemRef}>
                     {!chatMessages.length && <h5>No Messages Yet!</h5>}
                     {!!chatMessages.length &&
                         <div id="messages-container" >
                             {chatMessages.map((message, i) => (
                                 <div className="message" key={i}>
-                                    <img className="messagers-img" src={message.imageurl ||
-                                        "https://image.flaticon.com/icons/svg/1338/1338020.svg"} />
-                                    <p>{message.first} _ {message.last}</p>
+                                    <div className="sender">
+                                        <img className="messagers-img" src={message.imageurl ||
+                                            "https://image.flaticon.com/icons/svg/1338/1338020.svg"} />
+                                        <p>{message.first} _ {message.last}</p>
+                                    </div>
                                     <p>{message.message}</p>
-
                                 </div>
+
                             ))}
                         </div>
                     }
                 </div>
 
-                <textarea placeholder="Add Your Message Here!" onKeyDown={keyCheck}></textarea>
+                <textarea className="textarea1" placeholder="Add Your Message Here!" onKeyDown={keyCheck}></textarea>
             </div>
         );
     }

@@ -14,10 +14,10 @@ export default function Online() {
     } else {
         return (
             <div id="online-users">
+                <h3 className="online-greet">Online:</h3>
                 {!onlineUsers.length && <h5>No users online!</h5>}
                 {!!onlineUsers.length &&
                     <div id="online-users-container" >
-                        <h3 className="online-greet">Online:</h3>
                         {onlineUsers.map((onlineUser, i) => (
                             <div className="online-user" key={i}>
                                 <img className="online-users-img" src={onlineUser.imageurl ||
