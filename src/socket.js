@@ -1,5 +1,5 @@
 import * as io from 'socket.io-client';
-import { chatMessages, chatMessage } from './actions';
+import { chatMessages, chatMessage, onlineUsers, userLeft } from './actions';
 
 export let socket;
 
@@ -23,6 +23,20 @@ export const init = store => {
                 chatMessage(msg)
             )
         );
+
+        socket.on(
+            'onlineusers',
+            usersOnline => store.dispatch(
+                onlineUsers(usersOnline)
+            )
+        );
+        socket.on(
+            'userleft',
+            usersOnline => store.dispatch(
+                userLeft(usersOnline)
+            )
+        );
+
 
         // socket.on("addChatMessage", msg => {
         //     console.log(`my message is : ${msg

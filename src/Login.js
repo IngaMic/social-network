@@ -49,7 +49,7 @@ export default class Login extends React.Component {
     // this.setState ({error: true})
     render() {
         return (
-            <div>
+            <div className="login">
                 <h3>Login into your account:</h3>
                 <form onSubmit={(e) => this.handleSubmit(e)}>
                     {this.state.error && (
@@ -60,6 +60,7 @@ export default class Login extends React.Component {
                         <input
                             onChange={(e) => this.handleChange(e)}
                             name="email"
+                            type="email"
                             value={this.state.email}
                             placeholder="Email"
                         />
@@ -69,6 +70,7 @@ export default class Login extends React.Component {
                         <input
                             onChange={(e) => this.handleChange(e)}
                             name="password"
+                            type="password"
                             value={this.state.password}
                             placeholder="Password"
                         />

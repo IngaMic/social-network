@@ -1,5 +1,5 @@
-/* Typefesse Claire Obscure*/
-/* @font-face {
+/*Typefesse Claire Obscure*/
+ /* @font-face {
     font-family: "Typefesse Claire Obscure";
     src: url("/font/typefesse-master/Fonts/1-otf/._Typefesse_Claire-Obscure.otf");
     src: url("/font/typefesse-master/Fonts/2-webfonts/._Typefesse_Claire-Obscure.woff")
@@ -10,7 +10,7 @@
             format("woff2");
     font-weight: normal;
     font-style: normal;
-} */
+}  */
 
 /* Blackout Two AM */
 @font-face {
@@ -36,7 +36,10 @@ body {
     font-family: "Blackout Two AM";
 }
 h1 {
-    font-size: 50px;
+    font-size: 55px;
+    background-color: #f7f7f7ef;
+    padding: 0px;
+    text-align: center;
 }
 img {
     object-fit: cover;
@@ -48,6 +51,20 @@ p {
     right: 15px;
     top: 10px;
     position: absolute;
+}
+.online-users-img{
+    height: 60px;
+    width: 60px;
+    margin: 5px;
+}
+.online-greet {
+    margin: 10px;
+}
+#online-users-container {
+    width: 300px;
+    border: 3px solid black;
+     display: flex;
+    align-items: flex-end;
 }
 .friends-img{
     margin: 15px;
@@ -140,4 +157,42 @@ margin-right: 45px;
     width: 80px;
     object-fit: cover;
 
+}
+.registration, .login {
+    width: 380px;
+    height: 370px;
+    padding: 15px;
+    position: relative;
+    top: 200px;
+    margin: auto;
+    margin-top: -185px;
+    background: #f7f7f7f5;
+}
+.welcome {
+    width: 100%;
+    height: 100%;
+    background-image: url(pic.jpg);
+    background-size: cover;
+    background-position: center;
+}
+.users-link {
+    float: right;
+    position: relative;
+    top: 10px;
+      right: 10px;
+    margin: 10px;
+}
+.friends-link {
+      float: right;
+    top: 10px;
+      right: 10px;
+      position: relative;
+      margin: 10px;
+}
+.chat-link {
+    float: right;
+    top: 10px;
+    right: 10px;
+    position: relative;
+    margin: 10px;
 }

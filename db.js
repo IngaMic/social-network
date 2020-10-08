@@ -163,3 +163,10 @@ module.exports.addMessage = (userid, message) => {
         [userid, message]
     );
 };
+
+module.exports.getUsersByIds = (arr) => {
+    return db.query(
+        `SELECT id, first, last, imageurl 
+        FROM users WHERE id = ANY($1)`, [arr]
+    );
+};

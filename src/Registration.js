@@ -55,8 +55,8 @@ export default class Registration extends React.Component {
     // this.setState ({error: true}) //we need to figure out where to pur it
     render() {
         return (
-            <div>
-                <h3>Register here:</h3>
+            <div className="registration">
+                <h2>Register here:</h2>
                 <form onSubmit={(e) => this.handleSubmit(e)}>
                     {this.state.error && (
                         <h4 className="err">Something Went Wrong!</h4>
@@ -84,6 +84,7 @@ export default class Registration extends React.Component {
                         <input
                             onChange={(e) => this.handleChange(e)}
                             name="email"
+                            type="email"
                             value={this.state.email}
                             placeholder="Email"
                         />
@@ -93,6 +94,7 @@ export default class Registration extends React.Component {
                         <input
                             onChange={(e) => this.handleChange(e)}
                             name="password"
+                            type="password"
                             value={this.state.password}
                             placeholder="Password"
                         />

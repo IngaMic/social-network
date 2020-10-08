@@ -601,17 +601,43 @@ server.listen(8080, function () {
     console.log("server is listening...");
 });
 ////////////////////////////////////////////////////////////////////
-
+var onlineUsers = {};
 io.on("connection", function (socket) {
     console.log(`socket.id ${socket.id} is now connected`);
+    const userId = socket.request.session.userId;
     if (!socket.request.session.userId) {
         return socket.disconnect(true);
+
+    } else {
+        onlineUsers[socket.id] = userId;
+        var arr = Object.values(onlineUsers);
+        console.log("My array of users ids in sockets : ", arr);
+        db.getUsersByIds(arr).then(({ rows }) => {
+            console.log("these are my rows after getUsersByIds in index.js", rows.reverse());
+            io.sockets.emit("onlineusers", rows);
+        }).catch((err) => console.log("err in db.getUsersByIds", err))
+
     }
+
+    socket.on("disconnect", () => {
+        var disconectedId = onlineUsers[socket.id];
+        //console.log("disconedtedId when user leaves: ", disconectedId);
+        delete onlineUsers[socket.id];
+        //console.log("onlineUsers after the user leaves :", onlineUsers)
+        var arr = Object.values(onlineUsers);
+        //console.log("My array of users ids in sockets : ", arr);
+        if (!Object.values(onlineUsers).includes(disconectedId)) {
+            db.getUsersByIds(arr).then(({ rows }) => {
+                //console.log("these are my rows after getUsersByIds in index.js", rows.reverse());
+                io.sockets.emit("userleft", rows);
+            }).catch((err) => console.log("err in db.getUsersByIds", err))
+        }
+    });
 
     // a good place to retrieve out last 10 chat messages // kicks in after the user logs-in; all code inside this io.on(.....)
     //inside .then( we are going to emit the event for socket.js) -> then dispatch an action(.js) => reducer -> add it to redux
     db.getChatMessages().then(({ rows }) => {
-        console.log("these are my rows after getChatMessages in index.js", rows.reverse());
+        // console.log("these are my rows after getChatMessages in index.js", rows.reverse());
         //var msgs = rows.reverse();
         io.sockets.emit("chatMessages", rows);
     });
@@ -619,20 +645,20 @@ io.on("connection", function (socket) {
     //1srg = event that comes from chat.js
     //2arg info that comes along with the emit:
     socket.on("message", newMsg => {
-        console.log("This message is comming from chat.js component :", newMsg);
-        console.log("users who sent this newMsg id :", socket.request.session.userId);
+        //console.log("This message is comming from chat.js component :", newMsg);
+        //console.log("users who sent this newMsg id :", socket.request.session.userId);
         db.addMessage(socket.request.session.userId, newMsg).then(({ rows }) => {
-            console.log("these are my rows after addMessage in index.js", rows)
+            // console.log("these are my rows after addMessage in index.js", rows)
             db.getUser(socket.request.session.userId).then((info) => {
                 var list = info.rows;
-                console.log("my list here after getUser in message handling indez.js :", list);
+                // console.log("my list here after getUser in message handling indez.js :", list);
                 var message = {
                     first: list[0].first,
                     last: list[0].last,
                     imageurl: list[0].imageurl,
                     message: rows[0].message,
                 }
-                console.log(" newly constructed message in index.js :", message);
+                //console.log(" newly constructed message in index.js :", message);
                 io.sockets.emit("chatMessage", message);
             }).catch(err => console.log(err))
             //now we can do a new db.addMessage to chats

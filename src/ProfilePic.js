@@ -15,8 +15,8 @@ export default function ProfilePic({
                     imageUrl ||
                     "https://image.flaticon.com/icons/svg/1338/1338020.svg"
                 }
-                width="100"
-                height="150"
+                width="60"
+                height="60"
                 alt={`$${first} ${last}`}
             />
         </div>

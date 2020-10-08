@@ -39,20 +39,30 @@ export default function (state = {}, action) {
         }
     }
     if (action.type == 'RECEIVE_MESSAGES') {
-        console.log("action.msgs in reducers ;", action.msgs)
+        //console.log("action.msgs in reducers ;", action.msgs)
         state = Object.assign({}, state, {
             chatMessages: action.msgs,
         });
     }
     if (action.type == 'ADD_MESSAGE') {
-        console.log("action.msg in reducers ;", action.msg);
+        //console.log("action.msg in reducers ;", action.msg);
         state = {
             ...state,
             chatMessages: state.chatMessages.concat(action.msg)
         }
     }
-
-
+    if (action.type == 'ONLINE_USERS') {
+        // console.log("action.onlineUsers in reducers : ", action.onlineUsers)
+        state = Object.assign({}, state, {
+            onlineUsers: action.onlineUsers,
+        });
+    }
+    if (action.type == 'USER_LEFT') {
+        console.log("action.onlineUsers in reducers userLeft : ", action.onlineUsers)
+        state = Object.assign({}, state, {
+            onlineUsers: action.onlineUsers,
+        });
+    }
     return state;
 }
 
