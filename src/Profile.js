@@ -32,6 +32,7 @@ export default class Profile extends React.Component {
     render() {
         return (
             <div>
+
                 {this.props.logUserId && (
                     <ProfilePic
                         userId={this.props.userId}

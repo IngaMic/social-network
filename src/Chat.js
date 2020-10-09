@@ -36,8 +36,9 @@ export default function Chat() {
     } else {
         return (
             <div className="chat">
+                <a className="profile-link" href="/">Profile</a>
                 <Online />
-                <p className="chat-title"> Welcome to Community Chat!</p>
+                <h2 className="chat-title"> Welcome to Community Chat!</h2>
                 <div id="messages" ref={elemRef}>
                     {!chatMessages.length && <h5>No Messages Yet!</h5>}
                     {!!chatMessages.length &&

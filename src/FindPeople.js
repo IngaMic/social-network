@@ -45,7 +45,7 @@ const FindPeople = () => {
 
             {users.map((user, i) => {
                 return (
-                    <div key={i}>
+                    <div className="find-people" key={i}>
                         <Link to={`/user/${user.id}`} >
                             <img
                                 id="search-img"
@@ -57,7 +57,7 @@ const FindPeople = () => {
                                 width="200"
                                 height="250"
                             ></img>
-                            <p>
+                            <p >
                                 {user.first}_{user.last}
                             </p>
                         </Link>

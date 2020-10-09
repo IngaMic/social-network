@@ -66,8 +66,8 @@ export default class Bioeditor extends React.Component {
                                 onChange={(e) => this.handleChange(e)}
                                 //value={this.props.bio}
                                 name="text"
-                                rows="15"
-                                cols="30"
+                                rows="5"
+                                cols="60"
                             ></textarea>
                             {/* <input type="submit" value="submit"></input> */}
                             <button>Submit</button>

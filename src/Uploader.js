@@ -49,8 +49,7 @@ export default class Uploader extends React.Component {
         return (
             <div id="uploader">
                 <h1 className="x" onClick={this.props.closeUploader}>x</h1>
-                <img
-                    id="big-profile-img"
+                <img className="uploader-img"
                     src={
                         this.props.imageUrl ||
                         "https://image.flaticon.com/icons/svg/1338/1338020.svg"

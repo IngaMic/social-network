@@ -64,6 +64,7 @@ export default class App extends React.Component {
         return (
             <div>
                 <h2 className="logo">Combat</h2>
+                <div id="color"></div>
                 {/* {this.state.userId && (
                     <Profile
                         userId={this.state.userId}

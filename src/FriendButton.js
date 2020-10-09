@@ -58,7 +58,7 @@ const FriendButton = ({ logUserId, otherId }) => {
 
     return (
         <div>
-            <button onClick={clickHandler}>{text}</button>
+            <button className="frnd-btn" onClick={clickHandler}>{text}</button>
         </div>
     );
 };

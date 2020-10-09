@@ -83,7 +83,7 @@ export default class ResetPassword extends React.Component {
     // this.setState ({error: true})
     render() {
         return (
-            <div>
+            <div className="change-password">
                 <h3>Would you like to change your password?</h3>
                 {this.state.error && (
                     <h4 className="err">Something Went Wrong!</h4>
@@ -99,7 +99,7 @@ export default class ResetPassword extends React.Component {
                                 value={this.state.email}
                                 placeholder="Email"
                             />
-                            <button>Email me the code</button>
+                            <button>Get Code</button>
                         </form>
                     </div>
                 )}

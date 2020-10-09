@@ -42,6 +42,7 @@ export default class OtherProfile extends React.Component {
                 {this.state.error && (
                     <h4 className="err">Something Went Wrong!</h4>
                 )}
+                <a className="profile-link2" href="/">Profile</a>
                 {this.state.userId && (
                     <div>
                         <img
@@ -65,7 +66,7 @@ export default class OtherProfile extends React.Component {
                     <FriendButton
                         logUserId={this.props.logUserId}
                         otherId={this.state.userId}
-                        // clickHandler={this.state.clickHandler}
+                    // clickHandler={this.state.clickHandler}
                     />
                 )}
             </div>

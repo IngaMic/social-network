@@ -30,17 +30,32 @@
 input {
     margin: 20px;
 }
-
+/* .change-password {
+    text-align: center;
+} */
 body {
     /* font-family: "Typefesse Claire Obscure"; */
-    font-family: "Blackout Two AM";
+  font-family: 'Patua One', cursive;
+}
+h2, h3, a {
+ font-family: "Blackout Two AM";
+ color: rgb(5, 4, 104);
 }
 h1 {
-    font-size: 55px;
-    background-color: #f7f7f7ef;
+     font-family: "Blackout Two AM";
+    font-size: 65px;
     padding: 0px;
     text-align: center;
 }
+#color {
+    position: absolute;
+    height: 100%;
+    width: 140px;
+    right: 0px;
+    top: 0px;
+    background-color: rgba(228, 228, 255, 0.801);
+}
+
 img {
     object-fit: cover;
 }
@@ -48,10 +63,12 @@ p {
     font-size: 25px;
 }
 #small-profile-img {
-    right: 15px;
-    top: 10px;
+    right: 45px;
+    top: 30px;
     position: absolute;
+    border-radius: 50%;
 }
+
 .online-users-img{
     border-radius: 50%;
     height: 60px;
@@ -67,11 +84,13 @@ p {
     margin: 10px;
 }
 .chat {
+    top:30px;
+    position: absolute;
     display: inline-table;
     align-items: center;
     width: 80%;
     padding-top: 15px;
-    height: 90%;
+    height: 98%;
     text-align: center;
 }
 .logo {
@@ -83,24 +102,35 @@ p {
     width: 60%;
     height: 80px;
     margin: 10px;
-    margin-top: 20px;
+    margin-top: 35px;
     border: 3px solid black;
     border-radius: 10px;
     font-size: 15px;
     padding: 15px;
 }
+
+.find-people p {
+   margin-top: 0px;
+   font-size: medium;
+}
+.find-people img {
+     position: relative;
+    height: 200px;
+    width: 160px;
+    object-fit: cover;
+}
 #online-users-container {
     width: 100px;
-    border: 1px solid black;
-    border-radius: 10px;
     /* display: flex; */
     text-align: center;
     height: auto;
 }
 #online-users {
+    border: 1px solid black;
+    border-radius: 10px;
     position: absolute;
-    right: 10px;
-    top: 170px;
+    right: -120px;
+    top: 210px;
 }
 .friends-img{
     margin: 15px;
@@ -109,16 +139,23 @@ p {
     object-fit: cover;
 }
 #friendslist{
-height: 470px;
+  
+height: 500px;
+width: 80%;
 }
 #wannabeslist{
+   
    height: 450px;
+   width: 80%;
 }
 .friend{
    
     border: 1px solid lightblue;
     float: left;
   margin: 10px;
+}
+button {
+    margin: 15px;
 }
 .wannabe{
   
@@ -127,10 +164,9 @@ height: 470px;
   margin: 10px;
 }
 #big-profile-img {
-    left: 15px;
+    left: 35px;
     top: 100px;
     position: absolute;
-
 }
 #name-surname {
     font-size: 25px;
@@ -159,7 +195,7 @@ height: 470px;
 #uploader {
     padding-top: 15px;
     height: 90%;
-    width: 90%;
+    width: 80%;
     background-color: rgb(243, 243, 243);
     left: 50px;
     top: 30px;
@@ -169,13 +205,21 @@ height: 470px;
     box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
 }
 #uploader-form {
-    right: 15px;
-    top: 300px;
+    right: 50%;
+    bottom: 40px;
     position: absolute;
 }
+.uploader-img {
+    position: absolute;
+    height: 80%;
+    width: auto;
+    left: 22%;
+    margin: 5px;
+}
 .x {
-float: right;
-margin-right: 45px;
+position: absolute;
+top: 5px;
+right: 40px;
 }
 .x:hover {
  color: rgb(165, 7, 7);
@@ -213,13 +257,21 @@ margin-right: 45px;
     object-fit: cover;
 
 }
-.registration, .login {
+.frnd-btn {
+    position: absolute;
+    left: 34px;
+    top: 360px;
+    padding: 3px 10px;
+    border-radius: 10px;
+}
+.registration, .login, .change-password {
     width: 380px;
-    height: 370px;
+    height: 410px;
     padding: 15px;
     position: relative;
     top: 200px;
     margin: auto;
+    padding-left: 30px;
     margin-top: -185px;
     background: #f7f7f7f5;
 }
@@ -238,23 +290,40 @@ margin-right: 45px;
     margin: 10px;
 }
 .friends-link {
-      float: right;
-    top: 10px;
-      right: 10px;
-      position: relative;
-      margin: 10px;
+    position: absolute;
+    float: right;
+    top: 130px;
+    right: 10px;
+    margin: 10px;
 }
 .chat-link {
+    position: absolute;
     float: right;
-    top: 10px;
-    right: 10px;
-    position: relative;
+    top: 160px;
+    right: 65px;
     margin: 10px;
 }
 .logout-link {
+    position: absolute;
     float: right;
-    top: 10px;
-    right: 10px;
-    position: relative;
+    top: 190px;
+    right: 47px;
     margin: 10px;
+}
+.profile-link {
+    position: absolute;
+    float: right;
+    top: 40px;
+    right: -245px;
+    margin: 10px;
+}
+.profile-link2 {
+    position: absolute;
+    float: right;
+    top: 70px;
+    right: 50px;
+    margin: 10px;
+}
+.f-w-container {
+    margin-left: 30px;
 }

@@ -60,7 +60,7 @@ export default function FriendsWannabes() {
         </div>
     )
     return (
-        <div>
+        <div className="f-w-container">
             <div id="friends">
                 {!users.length && <h5>No Friends Yet!</h5>}
                 {!!users.length && friends}
