@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
-const server = require('http').Server(app);
-const io = require('socket.io')(server, { origins: 'localhost:8080' });
+const server = require("http").Server(app);
+const io = require("socket.io")(server, { origins: "localhost:8080" });
 const compression = require("compression");
 const db = require("./db.js");
 const bc = require("./bc.js");
@@ -43,7 +43,7 @@ if (process.env.NODE_ENV != "production") {
 
 const cookieSessionMiddleware = cookieSession({
     secret: `I'm always angry.`,
-    maxAge: 1000 * 60 * 60 * 24 * 90
+    maxAge: 1000 * 60 * 60 * 24 * 90,
 });
 
 app.use(cookieSessionMiddleware);
@@ -455,7 +455,7 @@ app.get("/api/friends", async (req, res) => {
         var users = [];
         const { rows } = await db.getFriends(userId);
         users = rows;
-        console.log("users from get /api/friends", users)
+        console.log("users from get /api/friends", users);
         res.json({
             users: users,
         });
@@ -510,7 +510,7 @@ app.post("/api/send-friend-request/:otherId", async (req, res) => {
 });
 app.post("/api/accept-friend-request/:otherId", async (req, res) => {
     try {
-        console.log("I am getting a req when updating to friends")
+        console.log("I am getting a req when updating to friends");
         var otherId = req.params.otherId;
         console.log("otherId from accept-friend index.js", otherId);
         var logUserId = req.session.userId;
@@ -525,7 +525,7 @@ app.post("/api/accept-friend-request/:otherId", async (req, res) => {
             text: text,
         });
     } catch (err) {
-        console.log("err in getUsers post accept friend", err)
+        console.log("err in getUsers post accept friend", err);
     }
 });
 app.post("/api/end-friendship/:otherId", async (req, res) => {
@@ -550,7 +550,7 @@ app.post("/api/end-friendship/:otherId", async (req, res) => {
 app.get("/logout", (req, res) => {
     req.session = null;
     res.redirect("/");
-})
+});
 
 // //the problem with a socket.io - all the communication after that is not HTTP = so there are no cookies
 // //another problematic case could be having more than one server...
@@ -611,16 +611,19 @@ io.on("connection", function (socket) {
     const userId = socket.request.session.userId;
     if (!socket.request.session.userId) {
         return socket.disconnect(true);
-
     } else {
         onlineUsers[socket.id] = userId;
         var arr = Object.values(onlineUsers);
         console.log("My array of users ids in sockets : ", arr);
-        db.getUsersByIds(arr).then(({ rows }) => {
-            console.log("these are my rows after getUsersByIds in index.js", rows.reverse());
-            io.sockets.emit("onlineusers", rows);
-        }).catch((err) => console.log("err in db.getUsersByIds", err))
-
+        db.getUsersByIds(arr)
+            .then(({ rows }) => {
+                console.log(
+                    "these are my rows after getUsersByIds in index.js",
+                    rows.reverse()
+                );
+                io.sockets.emit("onlineusers", rows);
+            })
+            .catch((err) => console.log("err in db.getUsersByIds", err));
     }
 
     socket.on("disconnect", () => {
@@ -631,10 +634,12 @@ io.on("connection", function (socket) {
         var arr = Object.values(onlineUsers);
         //console.log("My array of users ids in sockets : ", arr);
         if (!Object.values(onlineUsers).includes(disconectedId)) {
-            db.getUsersByIds(arr).then(({ rows }) => {
-                //console.log("these are my rows after getUsersByIds in index.js", rows.reverse());
-                io.sockets.emit("userleft", rows);
-            }).catch((err) => console.log("err in db.getUsersByIds", err))
+            db.getUsersByIds(arr)
+                .then(({ rows }) => {
+                    //console.log("these are my rows after getUsersByIds in index.js", rows.reverse());
+                    io.sockets.emit("userleft", rows);
+                })
+                .catch((err) => console.log("err in db.getUsersByIds", err));
         }
     });
 
@@ -648,27 +653,31 @@ io.on("connection", function (socket) {
 
     //1srg = event that comes from chat.js
     //2arg info that comes along with the emit:
-    socket.on("message", newMsg => {
+    socket.on("message", (newMsg) => {
         //console.log("This message is comming from chat.js component :", newMsg);
         //console.log("users who sent this newMsg id :", socket.request.session.userId);
-        db.addMessage(socket.request.session.userId, newMsg).then(({ rows }) => {
-            // console.log("these are my rows after addMessage in index.js", rows)
-            db.getUser(socket.request.session.userId).then((info) => {
-                var list = info.rows;
-                // console.log("my list here after getUser in message handling indez.js :", list);
-                var message = {
-                    first: list[0].first,
-                    last: list[0].last,
-                    imageurl: list[0].imageurl,
-                    message: rows[0].message,
-                }
-                //console.log(" newly constructed message in index.js :", message);
-                io.sockets.emit("chatMessage", message);
-            }).catch(err => console.log(err))
-            //now we can do a new db.addMessage to chats
-            // now we do db.getUser (first, last, imageurl)
-            //make sure your new chat message object looks like the one we receive from the first 10msg
-            //when object is there (last10) we emit it for users to see:
-        }).catch(err => console.log("error in addMessage :", err))
-    })
-})
+        db.addMessage(socket.request.session.userId, newMsg)
+            .then(({ rows }) => {
+                // console.log("these are my rows after addMessage in index.js", rows)
+                db.getUser(socket.request.session.userId)
+                    .then((info) => {
+                        var list = info.rows;
+                        // console.log("my list here after getUser in message handling indez.js :", list);
+                        var message = {
+                            first: list[0].first,
+                            last: list[0].last,
+                            imageurl: list[0].imageurl,
+                            message: rows[0].message,
+                        };
+                        //console.log(" newly constructed message in index.js :", message);
+                        io.sockets.emit("chatMessage", message);
+                    })
+                    .catch((err) => console.log(err));
+                //now we can do a new db.addMessage to chats
+                // now we do db.getUser (first, last, imageurl)
+                //make sure your new chat message object looks like the one we receive from the first 10msg
+                //when object is there (last10) we emit it for users to see:
+            })
+            .catch((err) => console.log("error in addMessage :", err));
+    });
+});
