@@ -6,7 +6,8 @@ For educational reasons frontend is set up with both class and function componen
 Coming soon -> website responsiveness.
 </br>
 </br>
-Deployment:
+
+# Deployment:
 https://combat-crowd.herokuapp.com/
 
 
@@ -19,4 +20,8 @@ Node.js  </br>
 Postgresql  </br>
 Express.js  </br>
 CSS  </br>
-Socket.io 
+Socket.io  </br>
+
+</br>
+
+![](combat.gif)
